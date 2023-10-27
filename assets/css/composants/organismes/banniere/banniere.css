@@ -1,0 +1,45 @@
+/* PROBLEME** pourquoi il ne wrap pas ???????? */
+
+.banniere{
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
+    margin-bottom: var(--space-large);
+    flex-wrap: wrap;
+}
+.banniere > div{
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-small);
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 1;
+}
+.banniere .icone-style-1 img{
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* Styles pour les écrans de 800 pixels de large ou plus */
+@media (min-width: 1000px){
+    .banniere{
+        margin-right: var(--space-XXlarge);
+        margin-left: var(--space-XXlarge);
+    }
+}
+
+@media (max-width:900px){
+    .banniere > div{
+        flex-wrap: wrap;
+        gap: var(--space-small);
+    }
+}
+
+/* Adaptation mobile */
+@media (max-width: 500px) {
+   
+    .banniere .icone-style-1{
+        display: none;
+    }
+}

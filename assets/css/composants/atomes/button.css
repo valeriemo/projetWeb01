@@ -1,0 +1,64 @@
+.button-1 {
+    background: var(--darkest);
+    border-radius: var(--space-mini);
+    color: var(--tonsNeutre-light);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    position: relative;
+    padding: var(--space-XXXsmall) var(--space-Xsmall);
+    text-align: left;
+    text-decoration: none;
+    transform: translateZ(0) scale(1);
+    transition: transform 500ms ease-in-out;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 10px 6px -6px #06032612;
+}
+.button-1 svg{
+  max-width: 20px;
+  fill: var(--couleurSecondaire1-Xlight);
+}
+.button-1.variation{
+  background-color: var(--couleurSecondaire1-Xlight);
+  color: var(--darkest);
+}
+.button-1:not(:disabled):hover {
+    transform: scale(1.05);
+    filter: brightness(110%);
+}
+.button-1:not(:disabled):active {
+    transform: translateY(.125rem);
+}
+.button-2{
+  border: 2px solid var(--couleurAccent);
+  border-radius: var(--space-mini);
+  background-color: var(--couleurAccent);
+  cursor: pointer;
+  position: relative;
+  font-weight: 700;
+  padding: var(--space-XXXsmall) var(--space-Xsmall);
+  text-align: left;
+  text-decoration: none;
+  transform: translateZ(0) scale(1);
+  transition: transform .2s;
+  touch-action: manipulation;
+  display: flex;
+  align-items: center;
+  transform: translateZ(0) scale(1);
+  transition: transform 500ms ease-in-out;
+  gap: var(--space-mini);
+}
+.button-2 svg{
+  width: 28px;
+}
+.button-2:hover{
+  background-color: transparent;
+}
+.button-2:not(:disabled):hover {
+  transform: scale(1.05);
+  filter: brightness(110%);
+}
+.button-2:not(:disabled):active {
+  transform: translateY(.125rem);
+}

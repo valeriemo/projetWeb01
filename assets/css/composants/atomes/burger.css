@@ -1,0 +1,26 @@
+.burger {
+    cursor: pointer;
+    padding-top: var(--space-XXsmall);
+    padding-bottom: var(--space-XXsmall);
+
+}
+
+.burger__bar {
+    background-color: black;
+    display: block;
+    height: 2px;
+    transition: transform .3s ease;
+    width: 35px;
+}
+
+.burger__bar + .burger__bar {
+    margin-top: 10px;
+}
+
+.burger:hover .burger__bar:first-of-type{
+    transform: translateY(-5px);
+}
+
+.burger:hover .burger__bar:last-of-type{
+    transform: translateY(5px);
+}

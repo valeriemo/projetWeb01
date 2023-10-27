@@ -1,0 +1,254 @@
+.page-timbre{
+    display: flex;
+    margin-left: var(--space-XXlarge);
+    margin-right: var(--space-XXlarge);
+    gap: var(--space-medium);
+    min-height: 70vh;
+    margin-bottom: var(--space-XXlarge);
+    justify-content: center
+}
+
+/* Section Photo */
+.page-timbre > div:first-of-type {
+    flex-basis: 40vw;
+    /* min-width: 450px; */
+}
+.page-timbre img{
+    position: relative;
+}
+/* icone Zoom */
+.page-timbre > div:first-of-type > div{
+    display: flex;
+    margin-top: var(--space-mini);
+    justify-content: flex-start;
+    gap: var(--space-XXXsmall);
+    & img{
+        max-width: 180px;
+        cursor: pointer;
+    }
+}
+
+
+
+/* Section Texte */
+.page-timbre > div:last-of-type{
+    flex-basis: 50vw;
+    color: var(--darkest);
+
+}
+.page-timbre hgroup{
+    margin-bottom: var(--space-small);
+}
+.page-timbre p{
+    font-family: var(--font-lato);
+
+}
+/* Premiere Table */
+.page-timbre table{
+    margin-top: var(--space-small);
+    text-align: left;
+    color: var(--darkest);
+}
+.page-timbre table tr{
+    font-family: var(--font-lato);
+}
+.page-timbre table td{
+    font-size: var(--font-size-md-sm);
+    padding-left: var(--space-small);
+}
+
+.page-timbre table th{
+    font-size: var(--font-size-base);
+    margin-top: var(--space-XXsmall);
+    margin-bottom: var(--space-mini);
+    padding: var(--space-XXsmall);
+    font-weight: 700;
+}
+/* section description et détail */
+.page-timbre dl{
+    margin-top: var(--space-small);
+    font-family: var(--font-lato);
+    font-size: var(--font-size-base);
+    line-height: 1.5em;
+    max-width: 70ch;
+}
+.page-timbre dl dt{
+    font-weight: 700;
+    border-bottom: 1px solid var(--couleurAccent);
+    padding-bottom: var(--space-mini);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    & svg{
+        fill: var(--darkest);
+        margin-bottom: var(--space-mini);
+        max-width: 15px;
+        transform: rotate(180deg);  /*en js, au clic, il va rotate 180deg*/
+        cursor: pointer;
+    }
+}
+
+.page-timbre dl dd{
+    margin-top: var(--space-XXsmall);
+    margin-bottom: var(--space-XXsmall);
+}
+.page-timbre .detail-table{
+    margin: 0;
+}
+.page-timbre .detail-table td{
+    font-size: var(--font-size-base);
+}
+.detail-table tr{
+    display: flex;
+    align-items: center;
+    margin-bottom: 60px;
+
+}
+.page-timbre .detail-table th{
+    min-width: 25ch;
+}
+.page-timbre .detail-table td{
+    font-size: var(--font-nav-sm);
+    gap: var(--space-Xsmall);
+    display: flex;
+    align-items: center;
+    line-height: 1.3em;
+}
+.page-timbre .detail-table .detail-colonne{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    & div{
+        display: flex;
+        gap: var(--space-Xsmall);
+        align-items:center;
+    }
+}
+.detail-table svg{
+    max-width: 40px;
+}
+.detail-table img{
+    max-width: 40px;
+}
+
+.mises{
+    max-width: max-content;
+    display: flex;
+    align-items: center;
+    gap: var(--space-XXXlarge);
+}
+
+/* section prix d'enchere */
+.mises > div:first-of-type{
+    padding: var(--space-XXXsmall);
+    text-align: center;
+    border: 1px solid var(--couleurAccent);
+    border-radius: var(--space-mini);
+}
+
+.mises p{
+    max-width: 20ch;
+    font-weight: 600;
+    color: var(--darkest);
+    line-height: 2em;
+}
+.mises p span{
+    padding-left: var(--space-mini);
+    font-weight: 800;
+    font-size: var(--font-size-md);
+}
+/* section button action */
+.mises > div:last-of-type{
+    display: flex;
+    gap: var(--space-Xsmall);
+    flex-direction: column;
+    align-items: left;
+}
+/* button miser*/
+.mises div .button-2{
+    color: var(--tonsNeutre-light);
+    font-size: var(--font-size-md-sm);
+    background-color: var(--couleurAccent);
+}
+
+.page-timbre ul {
+    margin-top: var(--space-XXXsmall);
+    font-family: var(--font-lato);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-XXXsmall)
+}
+
+/* Petit probleme lors de changement de taille **à regler */
+.page-timbre .timbre-signet{
+    left: auto;
+}
+
+@media (max-width: 900px){
+.page-timbre{
+    flex-wrap: wrap;
+}
+}
+
+/* ADAPTATION MOBILE */
+@media (max-width: 500px){
+
+    .page-timbre > div:first-of-type > div{
+    & img{
+        max-width: 130px;
+    }
+}
+    .page-timbre{
+        margin-left: var(--space-Xsmall);
+        margin-right: var(--space-Xsmall);
+        & hgroup{
+            margin-bottom: 50px;
+        }
+        & > div:first-of-type{
+            flex-basis: 100%;
+        }
+        & > div:last-of-type{
+            flex-basis: 100%;
+        }
+        & dl{
+            max-width: max-content;
+        } 
+    }
+    .page-timbre .mises{
+        flex-direction: column;
+        gap: 25px;
+        align-items: flex-start;
+        & p{
+            max-width: 150ch;
+
+        }
+    }
+    .page-timbre table{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .page-timbre dl dt{
+        border-bottom: 4px solid var(--couleurAccent);
+        padding-bottom: 10px;
+    }
+    .page-timbre dl dd{
+        margin-top: 30px;
+        margin-bottom: 40px;
+        line-height: 1.5em;
+    }
+    .page-timbre .detail-table img{
+        width: 78px;
+    }
+    .detail-table tr{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .page-timbre .detail-table td{
+        gap: 30px;
+        line-height: 1.3em;
+    }
+    .detail-table img{
+        max-width: 80px;
+    }
+}
+    

@@ -1,0 +1,54 @@
+:root{
+    /* Les couleurs */
+    --darkest: #000000;
+    
+    --couleurAccent-light: #F1B314;
+    --couleurAccent: #B8860B;
+    --couleurAccent-dark: #9D7309;
+
+    --couleurSecondaire1: #A9927D;
+    --couleurSecondaire1-medium: #987E65;
+    --couleurSecondaire1-light: #C2B2A3;
+    --couleurSecondaire1-Xlight: #E5DFD8;
+
+    --couleurSecondaire2: #5E503F;
+    --couleurSecondaire2-dark: #443A2D;
+    --couleurSecondaire2-Xdark: #29231B;
+
+    --tonsNeutre-light: #fdfaf3;    /*fond d'écran*/
+    --tonsNeutre-medium: #EDE8E3;
+    --tonsNeutre-dark: #241E18;
+    --tonsNeutre-Xdark: #191511;
+
+    /* Espacement */
+    --space-mini:  clamp(0.25rem, calc(0.23rem + 0.11vw), 0.31rem);
+    --space-XXXsmall: clamp(0.50rem, calc(0.48rem + 0.11vw), 0.56rem);
+    --space-XXsmall: clamp(0.75rem, calc(0.71rem + 0.22vw), 0.88rem); /*MARGE TOP HEADING*/
+    --space-Xsmall: clamp(1.00rem, calc(0.96rem + 0.22vw), 1.13rem);
+    --space-small: clamp(1.50rem, calc(1.43rem + 0.33vw), 1.69rem); /* gutter  + MARGE BOTTON HEADING*/
+    --space-base: clamp(2.00rem, calc(1.91rem + 0.43vw), 2.25rem); /*padding autour du logo *//*MARGE TOP BUTTON ou BOTTON TEXT*/
+    --space-medium: clamp(3.38rem, calc(3.24rem + 0.65vw), 3.75rem); 
+    --space-large: clamp(4.00rem, calc(3.83rem + 0.87vw), 4.50rem);
+    --space-Xlarge: clamp(6.75rem, calc(6.49rem + 1.30vw), 7.50rem);;  /*Marge Exterieur site + marge du debut(apres nav et avant footer)*/
+    --space-XXlarge: clamp(4.50rem, calc(2.93rem + 7.83vw), 9.00rem);
+    --space-XXXlarge: clamp(6.75rem, calc(4.92rem + 9.13vw), 12.00rem);      
+
+    /* Font size */
+
+    --font-size-xsm: clamp(0.8rem, 0.17vw + 0.76rem, 0.89rem);
+    --font-nav-sm: clamp(1rem, 0vw + 1rem, 1rem);
+    --font-size-base: clamp(1rem, 0.23vw + 0.94rem, 1.13rem); /* Taille typo menu*/
+    --font-size-md-sm: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
+    --font-size-md: clamp(1.62rem, 0.37vw + 1.53rem, 1.82rem);
+    --font-size-lg: clamp(2.62rem, 0.59vw + 2.47rem, 2.95rem); 
+    --font-size-xl: clamp(4.24rem, 0.96vw + 4rem, 4.77rem); /*h1*/
+    --font-size-xxl: clamp(6.85rem, 1.56vw + 6.46rem, 7.71rem);
+    --font-size-xxxl: clamp(11.09rem, 2.52vw + 10.46rem, 12.48rem);
+
+    /* Typographie */
+
+    --font-playfair: 'Playfair Display', serif;
+    --font-lato: 'Lato', sans-serif;
+
+}
+

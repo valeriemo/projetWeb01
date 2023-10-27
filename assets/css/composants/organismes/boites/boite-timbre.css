@@ -1,0 +1,105 @@
+.boite-timbre{
+    max-width: 30ch;
+    max-height: 536px;
+    border-radius: var(--space-mini);
+    font-family: var(--font-lato);
+    /*padding: var(--space-XXsmall);*/
+    background-color: var(--couleurSecondaire1-Xlight);
+    /* border: 0.2rem solid var(--darkest); */
+    box-shadow: 0 8px 6px -7px #06032612;
+}
+.boite-timbre:hover{
+    filter: brightness(108%);
+}
+.boite-timbre picture{
+    position: relative;
+}
+.boite-timbre picture img{
+    position: relative;
+}
+/* Texte de la boite-timbre */
+.timbre-info{
+    max-width: 30ch;
+    padding-top: var(--space-mini);
+    padding-left:var(--space-XXsmall);
+    padding-right: var(--space-XXsmall);
+    line-height: 2rem;
+    color: var(--darkest);
+}
+.timbre-info .button-1{
+    display: block;
+    text-align: center;
+    margin-top: var(--space-small);
+    margin-bottom: var(--space-small);
+}
+/* nom du timbre */
+.timbre-info > h4{
+    margin: 0;
+    line-height: 1.2em;
+}
+/* Pays et année */
+.timbre-info > p:first-of-type{
+    font-style: italic;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-XXsmall);
+}
+.timbre-info > p:nth-of-type(2){
+    border-top: 1px solid var(--darkest);
+    border-bottom: 1px solid var(--darkest);
+}
+/* prix */
+.timbre-info span{
+    font-size: var(--font-size-base);
+    font-weight: 800;
+    color: var(--darkest);
+}
+
+/* Boite timbre version carré */
+.boite-timbre.carre{
+    max-width: 65vw;
+    display: flex;
+    align-items: center;
+    gap: var(--space-XXsmall);
+    padding: var(--space-XXsmall);
+}
+
+
+
+
+@media (max-width:500px){
+.boite-timbre {
+    min-width: 270px;
+    max-width: 100%;
+    font-size: var(--font-size-md-sm);
+    max-height: max-content;
+    border: 20px solid var(--couleurSecondaire1-Xlight);
+    & p:first-of-type{
+        margin-bottom: var(--space-mini);
+    }
+    & p:last-of-type{
+        margin-top: var(--space-small);
+    }
+    .timbre-signet{
+        width: 78px;
+        left: 687px;
+    }
+}
+.boite-timbre:hover{
+    filter: none;
+}
+.boite-timbre.carre{
+    align-items: left;
+    flex-direction: column;
+    max-width: 92vw;
+}
+.boite-timbre.carre picture{
+    max-width: 273px
+}
+.boite-timbre .timbre-info{
+    max-width: none;
+    & h4{
+        font-size: var(--font-size-md);
+    }
+}
+
+}

@@ -1,0 +1,13 @@
+.boite-abonnement{
+    width: 90vw;
+    height: 40vh;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    border: 2px solid var(--darkest);
+    padding: var(--space-small);
+}
