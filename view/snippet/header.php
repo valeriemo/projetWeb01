@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       name="description"
-      content="Découvrez tous les timbres en enchères du fameux Lord Stampee.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lord Stampee | Enchères</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+      content="Découvrez tous les timbres en enchères du fameux Lord Stampee."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ICI CA VA CHANGER DYNAMIQUEMENT -->
+    <title>Lord Stampee | {{title}}</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
     <script defer src="assets/scripts/main.js"></script>
   </head>
 
@@ -22,54 +24,70 @@
               loading="lazy"
               src="assets/img/svg/icone/search.svg"
               alt="loupe de recherche"
-          ></picture>
+          /></picture>
           <input
             placeholder="Que cherchez-vous ?"
             type="search"
             aria-label="rechercher sur le site"
-          >
+          />
           <button class="button-1 variation">Rechercher</button>
         </div>
         <div>
+          <div class="texte-icone">
+            <a href="#">$ CAN</a>
+            <img
+              loading="lazy"
+              src="assets/img/svg/icone/fleche-down-light.svg"
+              alt="icone fleche"
+            />
+          </div>
+
           <div class="texte-icone">
             <picture>
               <img
                 loading="lazy"
                 src="assets/img/svg/icone/worldwide.svg"
-                alt="icone fleche-down"
-            ></picture>
+                alt="icone globe"
+            /></picture>
             <a href="#">Francais</a>
+            <img
+              loading="lazy"
+              src="assets/img/svg/icone/fleche-down-light.svg"
+              alt="icone fleche"
+            />
           </div>
+
           <a class="button-2" href="#">Se connecter</a>
           <a href="#">Créer un compte</a>
           <div class="icone-style-1">
             <div></div>
             <picture data-panier>
               <img
+                loading="lazy"
                 src="assets/img/svg/icone/panier-achat-dark.svg"
                 alt="panier achat icone"
-              >
+              />
             </picture>
           </div>
         </div>
       </header>
 
-      <picture
-        ><img
-          loading="lazy"
-          src="assets/img/svg/logo/logo-blk.svg"
-          alt="logo lord stampee"
-      ></picture>
-
+      <picture>
+        <img src="assets/img/svg/logo/logo-blk.svg" alt="logo lord stampee" />
+      </picture>
       <div class="nav-principale">
         <div>
-          <a href="index.html" aria-label="Page portail enchères">Enchères</a>
+          <a href="#" aria-label="Page portail enchères">Enchères</a>
           <a href="#" aria-label="Page du Lord">Lord Reginald Stampee</a>
 
           <div class="dropdown">
             <div class="texte-icone">
               <a aria-label="Page actualités" href="#">Actualités </a>
-              <img src="assets/img/svg/icone/fleche-down-dark.svg" alt="fleche">
+              <img
+                loading="lazy"
+                src="assets/img/svg/icone/fleche-down-dark.svg"
+                alt="icone fleche"
+              />
             </div>
             <div class="dropdown-content">
               <a href="#">Timbres</a>
@@ -83,8 +101,10 @@
             <div class="texte-icone">
               <a aria-label="page conseils santé" href="#">Contact</a
               ><img
+                loading="lazy"
                 src="assets/img/svg/icone/fleche-down-dark.svg"
-                alt="">
+                alt="icone fleche"
+              />
             </div>
             <div class="dropdown-content">
               <a href="#">Angleterre</a>
@@ -109,7 +129,8 @@
               <img
                 loading="lazy"
                 src="assets/img/svg/icone/panier-achat-dark.svg"
-                alt="panier achat icone">
+                alt="panier achat icone"
+              />
             </picture>
           </div>
         </div>
@@ -120,7 +141,8 @@
           <img
             loading="lazy"
             src="assets/img/svg/logo/logo-blk.svg"
-            alt="logo lord stampee">
+            alt="logo lord stampee"
+          />
         </picture>
 
         <div class="burger" data-js-burger>
@@ -134,7 +156,7 @@
         <div class="menu__ferme" data-js-menu-ferme></div>
         <nav>
           <ul class="menu__liste">
-            <li><a href="#">Enchères</a></li>
+            <li><a href="page-enchere.html">Enchères</a></li>
             <li><a href="#">Lord Reginald Stampee</a></li>
             <li>
               <div class="texte-icone">
@@ -143,8 +165,8 @@
                   ><img
                     loading="lazy"
                     src="assets/img/svg/icone/fleche-down-dark.svg"
-                    alt="fleche">
-                </picture>
+                    alt="icone fleche"
+                /></picture>
               </div>
             </li>
             <li><a href="#">Fonctionnement</a></li>
@@ -155,7 +177,8 @@
                   <img
                     loading="lazy"
                     src="assets/img/svg/icone/fleche-down-dark.svg"
-                    alt="fleche">
+                    alt="icone fleche"
+                  />
                 </picture>
               </div>
             </li>
@@ -164,88 +187,19 @@
           <div class="search-bar">
             <div>
               <picture
-              ><img
-                loading="lazy"
-                src="assets/img/svg/icone/search.svg"
-                alt="loupe de recherche">
-              </picture>
-            <input
-              placeholder="Que cherchez-vous ?"
-              type="search"
-              aria-label="rechercher sur le site">
+                ><img
+                  loading="lazy"
+                  src="assets/img/svg/icone/search.svg"
+                  alt="loupe de recherche"
+              /></picture>
+              <input
+                placeholder="Que cherchez-vous ?"
+                type="search"
+                aria-label="rechercher sur le site"
+              />
             </div>
             <button class="button-1 variation">Rechercher</button>
           </div>
         </nav>
       </div>
     </nav>
-
-    <main>
-      <section class="banniere-video">
-        <video
-          loading="lazy"
-          src="assets/video/accroche_video_stampee.mp4"
-          autoplay="true"
-          loop="true"
-        ></video>
-        <h1>
-          <span class="scribe">Bienvenue</span> dans l'excellence de l'enchère
-          de timbres.
-        </h1>
-          <a class="button-1" href="page-enchere.html">Parcourir les enchères</a>
-      </section>
-
-      <section class="boite-action">
-        <h2 hidden>Rejoignez-nous</h2>
-        <p>
-          <span class="scribe">Rejoignez-nous</span> et soyez le maître de votre
-          propre collection, où chaque timbre raconte une histoire et chaque
-          enchère est une occasion de posséder un morceau de l'héritage postal
-          mondial.
-        </p>
-        <a class="button-1" href="#">Créer un compte</a>
-      </section>
-    </main>
-
-    <footer>
-      <div>
-        <div>
-          <h4>Contact et support</h4>
-          <ul>
-            <li><a href="#">Termes et conditions</a></li>
-            <li><a href="#">Aide</a></li>
-            <li><a href="#">Contactez-nous</a></li>
-            <li><a href="#">Contactez le webmestre</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Accès rapides</h4>
-          <ul>
-            <li><a href="#">Enchères</a></li>
-            <li><a href="#">Espace membre</a></li>
-            <li><a href="#">Fonctionnement</a></li>
-            <li><a href="#">Espace membre</a></li>
-            <li><a href="#">Lord Stampee</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <hgroup>
-            <h4>Ne manquer rien !</h4>
-            <p>Inscrivez-vous à l'infolettre</p>
-          </hgroup>
-          <label aria-label="Abonnement">
-            <input type="text" placeholder="Entrer votre courriel">
-          </label>
-          <button class="button-1 variation">S'abonner</button>
-        </div>
-      </div>
-
-      <picture
-        ><img
-          loading="lazy"
-          src="assets/img/svg/logo/logo-sml-light.svg"
-          alt="Logo lord stampee"></picture>
-    </footer>
-  </body>
-</html>
