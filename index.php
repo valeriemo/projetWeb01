@@ -28,18 +28,6 @@ if ($url == '/') {
 
     if (file_exists($controllerPath)) { 
         require_once($controllerPath); 
-
-        // C'est ici que je veux insert dans ma base de donnée les logs
-        $log = new Log;
-        $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'guest';
-        $data = [
-            'ipAddress' => $_SERVER['REMOTE_ADDR'],
-            'date' => date('d F Y'),
-            'username' => $username,
-            'pageUrl' => $controllerPath
-        ];
-        $log->insert($data);
-
         $controllerName = 'Controller' . $requestURL; 
         $controller = new $controllerName;
 

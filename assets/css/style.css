@@ -12,6 +12,7 @@
 @import url(composants/organismes/navigation/navigation.css);
 @import url(composants/organismes/footer/footer.css);
 @import url(composants/organismes/aside.css);
+@import url(composants/organismes/formulaire.css);
 /* Boite */
 @import url(composants/organismes/boites/boite-timbre.css);
 @import url(composants/organismes/boites/boite-txt-sur-img.css);

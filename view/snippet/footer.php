@@ -35,7 +35,7 @@
       <picture
         ><img
           loading="lazy"
-          src="assets/img/svg/logo/logo-sml-light.svg"
+          src="{{path}}assets/img/svg/logo/logo-sml-light.svg"
           alt="Logo lord stampee"></picture>
     </footer>
   </body>

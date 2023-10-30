@@ -6,12 +6,12 @@ nav{
     font-family: 'Playfair Display', serif;
 }
 
-nav > picture{
+nav > a > picture{
     display: flex;
     justify-content: center;
 }
 /* Logo */
-nav > picture > img{        
+nav > a > picture > img{        
     width: 600px;
     padding: var(--space-medium);
 }
