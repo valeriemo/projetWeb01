@@ -10,7 +10,9 @@ class ControllerMembre extends Controller
      */
     public function index()
     {
-        Twig::render("home-index.php");
+        CheckSession::sessionAuth();
+
+        Twig::render("membre/membre-portail.php");
     }
 
     /**
@@ -24,7 +26,6 @@ class ControllerMembre extends Controller
     /**
      * Méthode pour traiter la soumission du formulaire de création d'un client
      * Hachage du mot de passe
-     * Envoi du mail de bienvenue
      */
     public function store()
     {
@@ -52,11 +53,73 @@ class ControllerMembre extends Controller
             $insert = $membre->insert($_POST);
             $select = $membre->selectId($insert, 'idMembre');
 
-            // On veux le rediriger vers une page de connexion qu'il se connecte 
-            Twig::render('home-index.php', ['membre' => $select]);
+            // Une fois le membre créé, on le connecte automatiquement
+            if($membre->checkUser($username, $password)){
+                // On voudrait afficher le portail membre avec bienvenue
+                Twig::render("membre/membre-portail.php",  ['membre' => $select]);
+            }
+            
         } else {
             $errors = $val->displayErrors();
             Twig::render('membre/membre-create.php', ['errors' => $errors]);
         }
+    }
+
+    /**
+     * Méthode pour afficher la page d'identification du membre
+     */
+    public function login(){
+        Twig::render('membre/login.php');
+    }
+
+    /**
+     * Méthode pour authentifier un utilisateur et le rediriger vers la page d'accueil 
+     */
+    public function auth(){
+        if ($_SERVER["REQUEST_METHOD"] != "POST"){
+            RequirePage::redirect('home/index');
+            exit();
+        }
+        extract($_POST);
+        RequirePage::library('Validation');
+        $val = new Validation();
+        $val->name('username')->value($username)->pattern('text')->max(30)->min(3)->required();
+        // Pourquoi ca marche pas avec un courriel ??
+        //$val->name('username')->value($username)->pattern('email')->required()->max(50);
+        $val->name('password')->value($password)->pattern('alphanum')->min(6)->max(20)->required();
+
+        if ($val->isSuccess()) {
+            $membre = new Membre();
+            if($membre->checkUser($username, $password)){
+                // On voudrait rediriger le membre vers son portail
+                Twig::render("membre/membre-portail.php");
+            }else{
+                RequirePage::redirect('home/error');
+            }
+        }else {
+            $errors = $val->displayErrors();
+            Twig::render('membre/login.php', ['errors'=>$errors, 'data'=>$_POST]);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Méthode pour déconnecter un utilisateur
+     */
+    public function logout(){
+        session_destroy();
+        RequirePage::redirect('home/index');
     }
 }

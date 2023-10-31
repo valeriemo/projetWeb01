@@ -35,14 +35,24 @@
           <img loading="lazy" src="{{path}}assets/img/svg/icone/fleche-down-light.svg" alt="icone fleche" />
         </div>
 
-        <a class="button-2" href="#">Se connecter</a>
+        {% if guest == 1 %}
+        <a class="button-2" href="{{path}}membre/login">Se connecter</a>
         <a href="{{path}}membre/create">Créer un compte</a>
-        <div class="icone-style-1">
+        {% else %}
+        <a class="button-2" href="{{path}}membre/logout">Se déconnecter</a>
+        <a href="{{path}}membre/index" class="icone-style-1">
+          <div></div>
+          <picture data-panier>
+            <img loading="lazy" src="{{path}}assets/img/svg/icone/home_1.svg" alt="maison icone" />
+          </picture>
+        </a>
+        {% endif %}
+        <a href="" class="icone-style-1">
           <div></div>
           <picture data-panier>
             <img loading="lazy" src="{{path}}assets/img/svg/icone/panier-achat-dark.svg" alt="panier achat icone" />
           </picture>
-        </div>
+        </a>
       </div>
     </header>
 

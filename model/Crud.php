@@ -10,9 +10,9 @@ abstract class Crud extends PDO
     /**
      * Méthode pour effectuer une sélection (READ) de tous les enregistrements
      */
-    public function select($field = 'id', $order = null)
+    public function select()
     {
-        $sql = "SELECT * FROM $this->table ORDER BY $field $order";
+        $sql = "SELECT * FROM $this->table ORDER BY $this->primaryKey ASC";
         $stmt = $this->query($sql);
         return $stmt->fetchAll();
     }

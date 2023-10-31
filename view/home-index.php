@@ -13,7 +13,7 @@
           <span class="scribe">Bienvenue</span> dans l'excellence de l'enchère
           de timbres.
         </h1>
-          <a class="button-1" href="page-enchere.html">Parcourir les enchères</a>
+          <a class="button-1" href="{{path}}enchere/index">Parcourir les enchères</a>
       </section>
 
       <section class="boite-action">

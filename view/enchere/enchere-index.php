@@ -49,7 +49,7 @@
           </div>
           <img
             loading="lazy"
-            src="assets/img/jpeg/encherespecial1.jpg"
+            src="{{path}}assets/img/jpeg/encherespecial1.jpg"
             alt="image enchere spéciales"
           />
         </div>
@@ -93,7 +93,7 @@
           </div>
           <img
             loading="lazy"
-            src="assets/img/jpeg/encheerespecial2.jpg"
+            src="{{path}}assets/img/jpeg/encheerespecial2.jpg"
             alt="image enchere spéciales"
           />
         </div>
@@ -137,7 +137,7 @@
           </div>
           <img
             loading="lazy"
-            src="assets/img/jpeg/encherespecial3.jpg"
+            src="{{path}}assets/img/jpeg/encherespecial3.jpg"
             alt="image enchere spéciales"
           />
         </div>
@@ -157,14 +157,14 @@
             <div class="icone-style-2">
               <figure>
                 <img
-                  src="assets/img/svg/icone/gallery.svg"
+                  src="{{path}}assets/img/svg/icone/gallery.svg"
                   alt="icone gallerie"
                 />
               </figure>
             </div>
             <div class="icone-style-2">
               <figure>
-                <img src="assets/img/svg/icone/list.svg" alt="icone liste" />
+                <img src="{{path}}assets/img/svg/icone/list.svg" alt="icone liste" />
               </figure>
             </div>
           </div>
@@ -660,14 +660,14 @@
       <main class="grille-principale">
         <img
           class="timbre-signet favoris"
-          src="assets/img/svg/icone/bookmark-gold.svg"
+          src="{{path}}assets/img/svg/icone/bookmark-gold.svg"
           alt="signet"
         />
         <article class="boite-timbre">
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre17.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre17.jpg"
               alt="timbre"
             />
           </picture>
@@ -714,13 +714,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre2.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre2.jpg"
               alt="timbre"
             />
           </picture>
@@ -767,13 +767,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre3jpg.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre3jpg.jpg"
               alt="timbre"
             />
           </picture>
@@ -821,13 +821,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre4.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre4.jpg"
               alt="timbre"
             />
           </picture>
@@ -874,13 +874,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre5.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre5.jpg"
               alt="timbre"
             />
           </picture>
@@ -927,13 +927,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre6.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre6.jpg"
               alt="timbre"
             />
           </picture>
@@ -980,13 +980,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre10.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre10.jpg"
               alt="timbre"
             />
           </picture>
@@ -1033,13 +1033,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre8.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre8.jpg"
               alt="timbre"
             />
           </picture>
@@ -1086,13 +1086,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre9.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre9.jpg"
               alt="timbre"
             />
           </picture>
@@ -1139,13 +1139,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre19.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre19.jpg"
               alt="timbre"
             />
           </picture>
@@ -1192,13 +1192,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre20.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre20.jpg"
               alt="timbre"
             />
           </picture>
@@ -1245,13 +1245,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre12.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre12.jpg"
               alt="timbre"
             />
           </picture>
@@ -1298,13 +1298,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre21.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre21.jpg"
               alt="timbre"
             />
           </picture>
@@ -1351,13 +1351,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre13.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre13.jpg"
               alt="timbre"
             />
           </picture>
@@ -1404,13 +1404,13 @@
         <article class="boite-timbre">
           <img
             class="timbre-signet"
-            src="assets/img/svg/icone/bookmark2.svg"
+            src="{{path}}assets/img/svg/icone/bookmark2.svg"
             alt="signet"
           />
           <picture>
             <img
               loading="lazy"
-              src="assets/img/jpeg/timbre/timbre15.jpg"
+              src="{{path}}assets/img/jpeg/timbre/timbre15.jpg"
               alt="timbre"
             />
           </picture>
@@ -1460,8 +1460,8 @@
           <picture>
             <img
               loading="lazy"
-              src="assets/img/svg/icone/premiere-page-dark.svg"
-              alt="fleche gauche"
+              src="{{path}}assets/img/svg/icone/premiere-page-dark.svg"
+              alt="{{path}}fleche gauche"
             />
           </picture>
         </div>
@@ -1471,7 +1471,7 @@
             <picture>
               <img
                 loading="lazy"
-                src="assets/img/svg/icone/fleche-gch.svg"
+                src="{{path}}assets/img/svg/icone/fleche-gch.svg"
                 alt="fleche gauche"
               />
             </picture>
@@ -1481,7 +1481,7 @@
             <picture>
               <img
                 loading="lazy"
-                src="assets/img/svg/icone/fleche-drt.svg"
+                src="{{path}}assets/img/svg/icone/fleche-drt.svg"
                 alt="fleche gauche"
               />
             </picture>
@@ -1492,7 +1492,7 @@
           <picture>
             <img
               loading="lazy"
-              src="assets/img/svg/icone/derniere-page-dark.svg"
+              src="{{path}}assets/img/svg/icone/derniere-page-dark.svg"
               alt="fleche gauche"
             />
           </picture>

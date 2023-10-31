@@ -16,6 +16,7 @@ RequirePage::model('Crud');
  */
 $url = isset($_GET["url"]) ? explode('/', ltrim($_GET["url"], '/')) : '/';
 
+
 if ($url == '/') {    
     $controllerHome = __DIR__ . '/controller/ControllerHome.php';  
     require_once $controllerHome;
