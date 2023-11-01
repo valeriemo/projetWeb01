@@ -1,5 +1,6 @@
 <?php
 RequirePage::model('Membre');
+RequirePage::model('Profil');
 
 
 class ControllerMembre extends Controller
@@ -11,8 +12,10 @@ class ControllerMembre extends Controller
     public function index()
     {
         CheckSession::sessionAuth();
-
-        Twig::render("membre/membre-portail.php");
+        // On va vérifier si le membre a un profil
+        $membre = new Profil;
+        $profil = $membre->selectId($_SESSION['idMembre'], 'membre_idMembre');
+        Twig::render("membre/membre-portail.php", ['membre'=>$profil]);
     }
 
     /**
@@ -84,15 +87,14 @@ class ControllerMembre extends Controller
         RequirePage::library('Validation');
         $val = new Validation();
         $val->name('username')->value($username)->pattern('text')->max(30)->min(3)->required();
-        // Pourquoi ca marche pas avec un courriel ??
-        //$val->name('username')->value($username)->pattern('email')->required()->max(50);
         $val->name('password')->value($password)->pattern('alphanum')->min(6)->max(20)->required();
 
         if ($val->isSuccess()) {
             $membre = new Membre();
             if($membre->checkUser($username, $password)){
                 // On voudrait rediriger le membre vers son portail
-                Twig::render("membre/membre-portail.php");
+                $membre = $membre->selectId($idMembre, 'idMembre');
+                Twig::render("membre/membre-portail.php", ['membre'=>$membre]);
             }else{
                 RequirePage::redirect('home/error');
             }

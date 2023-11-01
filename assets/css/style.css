@@ -25,6 +25,7 @@
 /* grille */
 @import url(composants/grille/page.css);
 @import url(composants/grille/main.css);
+@import url(composants/grille/simple.css);
 
 /* Variables */
 @import url(variables/variables.css);

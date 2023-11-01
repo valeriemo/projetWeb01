@@ -1,44 +1,52 @@
-{{ include('snippet/header.php', {title: 'Bienvenue'}) }}
+{{ include('snippet/header.php', {title: 'Création de timbre'}) }}
 
 
 <section>
-    <form action="{{path}}timbre/store" method="POST" class="formulaire">
+    <!-- Step 1: remplir le formulaire et ensuite ajouter des images -->
+    <h2>Remplir le formulaire</h2>
+    {% if errors != null %}
+    <div>
+        <ul>
+            {% for error in errors %}
+            <li class="error">{{error}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <form action="{{path}}timbre/store" method="POST" class="formulaire" enctype="multipart/form-data">
 
-        <label>Nom :<input name="username" type="text" min="3" max="30" /></label>
-        <label>Couleurs :<input name="couleurs" type="text" /></label>
-        <label>Pays d'origine :<input name="password" type="password" min="6" max="20" /></label>
-        <label>Année d'émission :<input name="anneeEmission" type="text" min="4" max="4" /></label>
-        <label>Tirage :<input name="tirage" type="text" /></label>
-        <label>Dimension :<input name="dimension" type="text" /></label>
+        <label>Nom :<input id="Nom du timbre" name="nomTimbre" type="text" min="3" max="45" />
+        <label>Couleurs :<input id="Couleurs du timbre" name="couleurs" type="text" max="150" />
+        <label>Pays d'origine :<input id="Pays d'origine" name="paysOrigine" type="text" min="2" max="25" />
+        <label>Année d'émission :<input id="Année d'Émission" name="anneeEmission" type="text" min="4" max="4" />
+        <label>Tirage :<input id="Tirage" name="tirage" type="text" />
+        <label>Dimension :<input id="Dimension" name="dimension" type="text" placeholder="Longueur x Largeur x Hauteur (cm)" />
 
         <label>Certification :
-            <select name="certification">
-                <option value="oui">Oui</option>
-                <option value="non">Non</option>
+            <select id="Certification" name="certification">
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
             </select>
         </label>
 
         <label>Condition :
-            <select name="condition_idCondition">
+            <select id="Condition du timbre" name="condition_idCondition">
                 {% for condition in conditions %}
                 <option value="{{condition.idCondition}}">{{condition.nomCondition}}</option>
                 {% endfor %}
             </select>
-
         </label>
-
 
         <input name="membre_idMembre" type="hidden" value="{{session.idMembre}}">
 
-
+        <label id="Images du timbre">Images (maximum de 2 images):
+            <input type="file" name="fileToUpload[]" multiple="multiple">
+            <input type="file" name="fileToUpload[]" multiple="multiple">
+        </label>
 
         <input class="button-1" type="submit" value="Ajouter">
     </form>
 
-    <!-- 
-    Formulaire d'envoi : Sur la page où vous saisissez les informations du timbre et les images, créez un formulaire qui permet aux utilisateurs de télécharger plusieurs images à la fois. Utilisez l'élément HTML <input type="file"> pour permettre à l'utilisateur de sélectionner les fichiers image.
-
-Traitement de la requête POST : Lorsque le formulaire est soumis, traitez la requête POST côté serveur. Vous pouvez accéder aux fichiers téléchargés en utilisant la variable $_FILES en PHP. Vous devrez boucler à travers les fichiers téléchargés et les stocker en base de données. -->
 
 </section>
 

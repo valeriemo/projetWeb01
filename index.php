@@ -38,11 +38,11 @@ if ($url == '/') {
                 $id = $url[2]; 
                 echo $controller->$method($id);   
             } else {
-                echo $controller->$method(); 
+                if(method_exists($controller, $method)) $controller->$method();
+                else RequirePage::redirect("error");            
             }
         } else {    
-            if(method_exists($controller, $method)) $controller->$method();
-            else RequirePage::redirect("error");
+            echo $controller->index();
         }
     } else {
         $controllerHome = __DIR__ . '/controller/ControllerHome.php';

@@ -20,36 +20,21 @@ abstract class Crud extends PDO
     /**
      *  Méthode pour effectuer une sélection (READ) par ID ou autre
      */
-    public function selectId($value, $champs)
-    {
-        $sql = "SELECT * FROM $this->table WHERE $champs = :champs";
+    public function selectId($value, $where){
+        $sql = "SELECT * FROM $this->table WHERE $where = :$where";
         $stmt = $this->prepare($sql);
-        $stmt->bindValue(':champs', $value);
+        $stmt->bindValue(":$where", $value);
         $stmt->execute();
         $count = $stmt->rowCount();
-
-        if ($count == 1) {
-            return $stmt->fetch();
-        } else {
-            header("location:../../home/error");
-            exit;
-        }
+        if ($count != 0) return $stmt->fetchAll();
+        else return false;  
     }
-
 
     /**
      * Méthode pour sélectionner plusieurs éléments avec une foreign key
      */
     public function selectAllById($value)
     {
-        if ($this->table == 'project') {
-            $key = $this->foreignKey;
-            // si c'est task
-        } elseif ($this->table == 'task') {
-            $key = $this->foreignKey2;
-        } else {
-            $key = $this->primaryKey;
-        }
 
         $sql = "SELECT * FROM $this->table WHERE $key = :$key";
         $stmt = $this->prepare($sql);
@@ -72,7 +57,6 @@ abstract class Crud extends PDO
         $fieldName = implode(', ', array_keys($data));
         $fieldValue = ":" . implode(', :', array_keys($data));
         $sql = "INSERT INTO $this->table ($fieldName) VALUES ($fieldValue)";
-
         $stmt = $this->prepare($sql);
         foreach ($data as $key => $value) {
             $stmt->bindValue(":$key", $value);

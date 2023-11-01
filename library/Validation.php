@@ -32,6 +32,8 @@ class Validation
         'address'       => '[\p{L}0-9\s.,()°-]+',
         'date_dmy'      => '[0-9]{1,2}\-[0-9]{1,2}\-[0-9]{4}',
         'date_ymd'      => '[0-9]{4}\-[0-9]{1,2}\-[0-9]{1,2}',
+        'year'          => '[0-9]{4}',
+        'boolean'       => '/^(?:(1|y(?:es)?|t(?:rue)?|on)|(0|n(?:o)?|f(?:alse)?|off))$/i ',
         'email'         => '[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})'
     );
 
@@ -146,8 +148,7 @@ class Validation
     {
 
         if (is_string($this->value)) {
-
-            if (strlen($this->value) < $length) {
+           if (strlen($this->value) < $length) {
                 $this->errors[] = 'La valeur du champ ' . $this->name . ' est inférieur à la valeur minimale';
             }
         } else {

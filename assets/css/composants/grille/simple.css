@@ -1,0 +1,8 @@
+.grille-simple{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
+    gap: var(--space-small);
+    margin-left: var(--space-Xlarge);
+    margin-right: var(--space-Xlarge);
+    margin-bottom: var(--space-small);
+}

@@ -63,6 +63,14 @@
     padding: var(--space-XXsmall);
 }
 
+/* Boite timbre version Page membre */
+.boite-timbre.membre{
+    min-width: 25ch;
+    max-height: max-content;
+}
+.boite-timbre.membre picture{
+    min-width: 10ch;
+}
 
 
 
