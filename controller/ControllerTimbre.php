@@ -40,26 +40,27 @@ class ControllerTimbre extends Controller
         $validation = $this->validate();
 
         if ($validation->isSuccess()) {
-
             $timbre = new Timbre();
             $insert_id = $timbre->insert($_POST);
-
-
             foreach($_FILES["fileToUpload"]['name'] as $file) {
-                $data['timbre_idTimbre'] = $insert_id;
-
-                $data["nomImage"] = $file;
-                $image = new Image;
-                $image->insert($data);
+                if($file != ''){
+                    $data['timbre_idTimbre'] = $insert_id;
+                    $data["nomImage"] = $file;
+                    $image = new Image;
+                    $image->insert($data);
+                }
+                
             }
             for ($i=0; $i < count($_FILES["fileToUpload"]["name"]); $i++) { 
-                $target_dir = "assets/img/public/";
-                $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"][$i]);
-                move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i], $target_file);
+                if($file != ''){
+                    $target_dir = "assets/img/public/";
+                    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"][$i]);
+                    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i], $target_file);
+                }
             }
-
             // retour portail membre ou mettre ce timbre en enchere
-            Twig::render("timbre/timbre-enchere.php",  ['timbre' => $insert_id]);
+            $id = $insert_id;
+            Twig::render("timbre/timbre-enchere.php",  ['timbre' => $id]);
         } else {
             $errors = $validation->getErrors();
             $condition = new Condition;
@@ -84,10 +85,11 @@ class ControllerTimbre extends Controller
         $val->name('certification')->value($certification)->required()->pattern('int')->min(1)->max(1);
         $val->name('condition_idCondition')->value($condition_idCondition)->required()->pattern('int')->min(1)->max(1);
         $val->name('membre_idMembre')->value($membre_idMembre)->required()->pattern('int');
+        
 
         // Validation des images
         foreach ($_FILES["fileToUpload"]["name"] as $key => $value) {
-            $fileSize = $_FILES["fileToUpload"]["size"][$key];
+            $fileSize = $_FILES["fileToUpload"]["size"][$key]; 
             if ($fileSize > 2000000) {
                 $val->errors["images"] = "Une de vos photos est trop grande, la taille maximale autorisée est de 2MB.";
             }
@@ -100,10 +102,8 @@ class ControllerTimbre extends Controller
 
         $timbre = new Timbre;
         $getTimbres = $timbre->select();
-
         // On veux aller cherche les images correspondant au timbre
         $image = new Image;
-
         foreach ($getTimbres as &$timbre) {
             $getImages = $image->selectId($timbre['idTimbre'], 'timbre_idTimbre');
 
@@ -112,7 +112,6 @@ class ControllerTimbre extends Controller
             } 
             else $timbre['images'] = false;
         }
-
  
         Twig::render('timbre/timbre-show.php', ['timbres' => $getTimbres]);
     }

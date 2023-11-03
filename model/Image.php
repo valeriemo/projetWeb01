@@ -12,4 +12,15 @@ class Image extends Crud{
         'timbre_idTimbre',
         'nomImage'
     ];
+
+    public function getImageById($id){
+        $sql = "SELECT `nomImage` FROM $this->table WHERE `timbre_idTimbre` = $id";
+        $stmt = $this->query($sql);
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll();
+        } else {
+            return false;
+        }
+    }
+
 }

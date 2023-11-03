@@ -8,8 +8,6 @@ require_once(__DIR__ . '/vendor/autoload.php');
 require_once(__DIR__ . '/library/Twig.php');
 require_once(__DIR__ . '/library/CheckSession.php');
 
-RequirePage::model('Crud');
-
 
 /**
  * Point d'entrée de l'application web.

@@ -10,4 +10,11 @@ class Condition extends Crud{
         'idCondition',
         'nomCondition'
     ];
+
+    public function getCondition($idCondition){
+        $sql = "SELECT `nomCondition` From $this->table where `idCondition`= $idCondition";
+        $stmt = $this->query($sql);
+        return $stmt->fetch();
+    }
+    
 }

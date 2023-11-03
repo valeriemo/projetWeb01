@@ -5,7 +5,7 @@
       <section class="banniere-video">
         <video
           loading="lazy"
-          src="assets/video/accroche_video_stampee.mp4"
+          src="{{path}}assets/video/accroche_video_stampee.mp4"
           autoplay="true"
           loop="true"
         ></video>

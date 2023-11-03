@@ -13,6 +13,15 @@ img{
 	object-fit: cover;
 	width: 100%;
 }
+
+.show-errors{
+    display: flex;
+    flex-direction: column;
+    & > ul > li{
+        margin-bottom: var(--space-mini);
+    }
+}
+
 .error{
     color: red;
     font-weight: 800;

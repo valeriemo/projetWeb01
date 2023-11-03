@@ -63,9 +63,17 @@
     </a>
     <div class="nav-principale">
       <div>
-        <a href="#" aria-label="Page portail enchères">Enchères</a>
+      <div class="dropdown">
+          <div class="texte-icone">
+          <a href="" aria-label="Page portail enchères">Enchères</a>
+            <img loading="lazy" src="{{path}}assets/img/svg/icone/fleche-down-dark.svg" alt="icone fleche" />
+          </div>
+          <div class="dropdown-content">
+            <a href="{{path}}enchere/show">En cours</a>
+            <a href="{{path}}enchere/archive">Archive</a>
+          </div>
+        </div>
         <a href="#" aria-label="Page du Lord">Lord Reginald Stampee</a>
-
         <div class="dropdown">
           <div class="texte-icone">
             <a aria-label="Page actualités" href="#">Actualités </a>

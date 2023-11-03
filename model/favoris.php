@@ -1,5 +1,5 @@
 <?php
-require_once('Crud.php');
+require_once(__DIR__ . '/core/Crud.php');
 
 class Favoris extends Crud{
 

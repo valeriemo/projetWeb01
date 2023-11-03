@@ -26,7 +26,8 @@
 @import url(composants/grille/page.css);
 @import url(composants/grille/main.css);
 @import url(composants/grille/simple.css);
-
+/* Modal */
+@import url(composants/organismes/modal/miser.css);
 /* Variables */
 @import url(variables/variables.css);
 

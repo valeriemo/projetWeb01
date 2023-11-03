@@ -1,21 +1,18 @@
 <?php
 RequirePage::model('Membre');
-RequirePage::model('Profil');
-
+RequirePage::model('Enchere');
+RequirePage::model('Timbre');
+RequirePage::model('Image');
 
 class ControllerMembre extends Controller
 {
-
     /**
      * Méthode pour afficher la page d'accueil. Affiche tous les projets en cours.
      */
     public function index()
     {
         CheckSession::sessionAuth();
-        // On va vérifier si le membre a un profil
-        $membre = new Profil;
-        $profil = $membre->selectId($_SESSION['idMembre'], 'membre_idMembre');
-        Twig::render("membre/membre-portail.php", ['membre'=>$profil]);
+        Twig::render("membre/membre-portail.php");
     }
 
     /**
@@ -36,17 +33,20 @@ class ControllerMembre extends Controller
             RequirePage::redirect('membre/membre-create');
             exit();
         }
-
         extract($_POST);
-        RequirePage::library('Validation');
-        $val = new Validation();
-
-        $val->name('username')->value($username)->pattern('text')->max(30)->min(3)->required();
-        $val->name('password')->value($password)->pattern('alphanum')->min(6)->max(20)->required();
-        $val->name('courriel')->value($courriel)->pattern('email')->required()->max(50);
-        $val->name('dateInscription')->value($dateInscription)->required()->pattern('date_ymd');
+        $val = $this->validate();
 
         if ($val->isSuccess()) {
+            // verification si le courriel existe deja
+            $membre = new Membre();
+            $checkCourriel = $membre->selectId($courriel, 'courriel');
+            if ($checkCourriel) {
+                $errors = ['Le courriel existe déjà'];
+                Twig::render('membre/membre-create.php', ['errors' => $errors]);
+                exit();
+            }
+
+            // creation du membre
             $membre = new Membre();
             $options = [
                 'cost' => 10,
@@ -58,14 +58,27 @@ class ControllerMembre extends Controller
 
             // Une fois le membre créé, on le connecte automatiquement
             if($membre->checkUser($username, $password)){
-                // On voudrait afficher le portail membre avec bienvenue
                 Twig::render("membre/membre-portail.php",  ['membre' => $select]);
             }
-            
         } else {
-            $errors = $val->displayErrors();
+            $errors = $val->getErrors();
             Twig::render('membre/membre-create.php', ['errors' => $errors]);
         }
+    }
+
+    /**
+     * Méthode pour valider les données du formulaire de création d'un membre
+     */
+    public function validate(){
+        RequirePage::library('Validation');
+        extract($_POST);
+        $val = new Validation();
+        $val->name('username')->value($username)->pattern('text')->max(30)->min(3)->required();
+        $val->name('password')->value($password)->pattern('alphanum')->min(6)->max(20)->required();
+        $val->name('courriel')->value($courriel)->pattern('email')->required()->max(50);
+        $val->name('dateInscription')->value($dateInscription)->required()->pattern('date_ymd');
+
+        return $val;
     }
 
     /**
@@ -92,29 +105,52 @@ class ControllerMembre extends Controller
         if ($val->isSuccess()) {
             $membre = new Membre();
             if($membre->checkUser($username, $password)){
-                // On voudrait rediriger le membre vers son portail
-                $membre = $membre->selectId($idMembre, 'idMembre');
+                $membre = $membre->selectId($username, 'username');
                 Twig::render("membre/membre-portail.php", ['membre'=>$membre]);
             }else{
                 RequirePage::redirect('home/error');
             }
         }else {
-            $errors = $val->displayErrors();
+            $errors = $val->getErrors();
             Twig::render('membre/login.php', ['errors'=>$errors, 'data'=>$_POST]);
         }
+        
     }
 
+    /**
+     * Méthode pour afficher les echères en cours d'un membre
+     */
+    public function enchere(){
+        CheckSession::sessionAuth();
+        $encheres = new Enchere;
+        $getEnchere = $encheres->joinTimbreEnchereById($_SESSION['idMembre'], 'membre_idMembre');
+        var_dump($getEnchere);
+        Twig::render("/membre/membre-enchere.php", ['encheres'=>$getEnchere]);
+    }
 
+    public function timbre(){
+        CheckSession::sessionAuth();
 
+        $timbre = new Timbre;
+        $getTimbres = $timbre->selectId($_SESSION['idMembre'],'membre_idMembre');
+        
+        // On veux aller cherche les images correspondant au timbre
+        $image = new Image;
 
-
-
-
-
-
-
-
-
+        if ($getTimbres != false) {
+            foreach ($getTimbres as &$timbre) {
+                $getImages = $image->selectId($timbre['idTimbre'], 'timbre_idTimbre');
+                // On doit verifier si le timbre est en enchere
+                //$getEnchere = $timbre->selectId($timbre['idTimbre'], 'timbre_idTimbre');
+                // Si le timbre est en enchere
+                if($getImages){
+                    $timbre['images'] = $getImages[0]['nomImage'];
+                } 
+                else $timbre['images'] = false;
+            }
+        }
+        Twig::render('membre/membre-timbre.php', ['timbres' => $getTimbres]);
+    }
 
 
     /**
