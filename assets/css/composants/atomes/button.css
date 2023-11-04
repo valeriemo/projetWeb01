@@ -49,6 +49,10 @@
   transition: transform 500ms ease-in-out;
   gap: var(--space-mini);
 }
+.button-2 > a{
+  text-decoration: none;
+  color: inherit;
+ }
 .button-2 svg{
   width: 28px;
 }

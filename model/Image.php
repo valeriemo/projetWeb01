@@ -13,6 +13,9 @@ class Image extends Crud{
         'nomImage'
     ];
 
+    /**
+     * Méthode qui va chercher le nom des l'images d'un timbre
+     */
     public function getImageById($id){
         $sql = "SELECT `nomImage` FROM $this->table WHERE `timbre_idTimbre` = $id";
         $stmt = $this->query($sql);

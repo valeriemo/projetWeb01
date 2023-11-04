@@ -9,6 +9,7 @@ require_once(__DIR__ . '/library/Twig.php');
 require_once(__DIR__ . '/library/CheckSession.php');
 
 
+
 /**
  * Point d'entrée de l'application web.
  */

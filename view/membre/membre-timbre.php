@@ -15,28 +15,24 @@
         <div class="grille-simple">
 
             {% for timbre in timbres %}
+            {% if timbre.idEnchere is empty %}
 
             <article class="boite-timbre membre">
-                {% if timbre.images == false %}
-                <picture>
-                    <img loading="lazy" src="{{path}}assets/img/jpeg/noImg.jpg" alt="timbre" />
-                </picture>
-                 {% else %}
-                <picture>
-                    <img loading="lazy" src="{{path}}assets/img/public/{{timbre.images}}" alt="timbre" />
-                </picture>
-                {% endif %}
                 <div class="timbre-info">
                     <h4>{{ timbre.nomTimbre }}</h4>
                     <p>{{ timbre.paysOrigine }}, {{ timbre.anneeEmission }}</p>
                 </div>
                 <a href="{{path}}enchere/create/{{timbre.idTimbre}}" class="button-1">Mettre ce timbre en enchère</a>
-                <a href="{{path}}enchere/edit/{{timbre.idTimbre}}" class="button-1">Éditer ce timbre</a>
+                <a href="{{path}}timbre/edit/{{timbre.idTimbre}}" class="button-1">Éditer ce timbre</a>
                 <a href="{{path}}enchere/delete/{{timbre.idTimbre}}" class="button-1">Supprimer ce timbre</a>
 
 
             </article>
-
+            {% else %}
+            <div>
+                <p>{{ timbre.nomTimbre }} : Mis en enchère !</p>
+            </div>
+            {% endif %}
             {% endfor %}
 
         </div>

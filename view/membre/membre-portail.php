@@ -1,7 +1,10 @@
 {{ include('snippet/header.php', {title: 'Bienvenue'}) }}
 
 <main class="dashboard">
-    <h1>Bienvenue {{session.username}}</h1>
+    <h1>Bienvenue {{membre[0].prenom}}</h1>
+    <section class="carte_profil">
+
+    </section>
 
     <div class="dashboard_table">
         <section class="dashboard_action">

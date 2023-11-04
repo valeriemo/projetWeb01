@@ -51,7 +51,6 @@ abstract class Crud extends PDO
     // Méthode pour effectuer une insertion (CREATE) d'un nouvel enregistrement
     public function insert($data)
     {
-
         $data_keys = array_fill_keys($this->fillable, '');
         $data = array_intersect_key($data, $data_keys);
         $fieldName = implode(', ', array_keys($data));

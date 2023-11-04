@@ -169,6 +169,10 @@
     color: var(--tonsNeutre-light);
     font-size: var(--font-size-md-sm);
     background-color: var(--couleurAccent);
+    & > a{
+        text-decoration: none;
+        color: inherit;
+    }
 }
 
 .page-timbre ul {

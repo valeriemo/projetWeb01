@@ -52,7 +52,7 @@ class ControllerTimbre extends Controller
                 
             }
             for ($i=0; $i < count($_FILES["fileToUpload"]["name"]); $i++) { 
-                if($file != ''){
+                if($_FILES["fileToUpload"]["name"][$i] != ''){
                     $target_dir = "assets/img/public/";
                     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"][$i]);
                     move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i], $target_file);
@@ -76,9 +76,9 @@ class ControllerTimbre extends Controller
         extract($_POST);
 
         // Validation timbre données
-        $val->name('nomTimbre')->value($nomTimbre)->pattern('words')->max(30)->min(3)->required();
+        $val->name('nomTimbre')->value($nomTimbre)->max(30)->min(3)->required();
         $val->name('couleurs')->value($couleurs)->min(3)->max(100)->required();
-        $val->name('paysOrigine')->value($paysOrigine)->pattern('words')->required()->max(50);
+        $val->name('paysOrigine')->value($paysOrigine)->required()->max(50);
         $val->name('anneeEmission')->value($anneeEmission)->required()->pattern('year');
         $val->name('tirage')->value($tirage)->required()->pattern('int');
         $val->name('dimension')->value($dimension)->required();
@@ -112,7 +112,19 @@ class ControllerTimbre extends Controller
             } 
             else $timbre['images'] = false;
         }
- 
         Twig::render('timbre/timbre-show.php', ['timbres' => $getTimbres]);
+    }
+
+    public function edit($id){
+        CheckSession::sessionAuth();
+        // On doit aller chercher les informations du timbre
+        $idTimbre = $id;
+        $timbre = new Timbre;
+        $getTimbre = $timbre->selectId($idTimbre, 'idTimbre');
+        $condition = new Condition;
+        $conditions = $condition->select();
+        // On doit aller chercher les images du timbre
+        $image = new Image;
+        Twig::render('timbre/timbre-edit.php', ['timbre' => $getTimbre[0], 'conditions' => $conditions]);
     }
 }

@@ -19,6 +19,7 @@
 @import url(composants/organismes/boites/boite-action.css);
 @import url(composants/organismes/boites/boite-abonnement.css);
 @import url(composants/organismes/boites/page-timbre.css);
+@import url(composants/organismes/boites/boite-mise.css);
 /* Banniere */
 @import url(composants/organismes/banniere/banniere.css);
 @import url(composants/organismes/banniere/banniere-video.css);

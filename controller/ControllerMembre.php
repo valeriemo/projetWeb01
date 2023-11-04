@@ -12,7 +12,10 @@ class ControllerMembre extends Controller
     public function index()
     {
         CheckSession::sessionAuth();
-        Twig::render("membre/membre-portail.php");
+        $membre = new Membre;
+        $membre = $membre->selectId($_SESSION['idMembre'], 'idMembre');
+
+        Twig::render("membre/membre-portail.php", ['membre' => $membre]);
     }
 
     /**
@@ -57,7 +60,7 @@ class ControllerMembre extends Controller
             $select = $membre->selectId($insert, 'idMembre');
 
             // Une fois le membre créé, on le connecte automatiquement
-            if($membre->checkUser($username, $password)){
+            if($membre->checkUser($courriel, $password)){
                 Twig::render("membre/membre-portail.php",  ['membre' => $select]);
             }
         } else {
@@ -73,10 +76,11 @@ class ControllerMembre extends Controller
         RequirePage::library('Validation');
         extract($_POST);
         $val = new Validation();
-        $val->name('username')->value($username)->pattern('text')->max(30)->min(3)->required();
         $val->name('password')->value($password)->pattern('alphanum')->min(6)->max(20)->required();
         $val->name('courriel')->value($courriel)->pattern('email')->required()->max(50);
         $val->name('dateInscription')->value($dateInscription)->required()->pattern('date_ymd');
+        $val->name('nom')->value($nom)->pattern('text')->max(30)->min(3)->required();
+        $val->name('prenom')->value($prenom)->pattern('text')->max(30)->min(3)->required();
 
         return $val;
     }
@@ -99,13 +103,13 @@ class ControllerMembre extends Controller
         extract($_POST);
         RequirePage::library('Validation');
         $val = new Validation();
-        $val->name('username')->value($username)->pattern('text')->max(30)->min(3)->required();
+        $val->name('courriel')->value($courriel)->pattern('email')->max(50)->min(3)->required();
         $val->name('password')->value($password)->pattern('alphanum')->min(6)->max(20)->required();
 
         if ($val->isSuccess()) {
             $membre = new Membre();
-            if($membre->checkUser($username, $password)){
-                $membre = $membre->selectId($username, 'username');
+            if($membre->checkUser($courriel, $password)){
+                $membre = $membre->selectId($courriel, 'courriel');
                 Twig::render("membre/membre-portail.php", ['membre'=>$membre]);
             }else{
                 RequirePage::redirect('home/error');
@@ -123,32 +127,18 @@ class ControllerMembre extends Controller
     public function enchere(){
         CheckSession::sessionAuth();
         $encheres = new Enchere;
-        $getEnchere = $encheres->joinTimbreEnchereById($_SESSION['idMembre'], 'membre_idMembre');
-        var_dump($getEnchere);
+        $getEnchere = $encheres->getTimbreIfEnchere($_SESSION['idMembre']);
         Twig::render("/membre/membre-enchere.php", ['encheres'=>$getEnchere]);
     }
 
+    /**
+     * Méthode pour afficher les timbres d'un membre qui ne sont pas encore en enchère
+     */
     public function timbre(){
         CheckSession::sessionAuth();
-
         $timbre = new Timbre;
-        $getTimbres = $timbre->selectId($_SESSION['idMembre'],'membre_idMembre');
-        
-        // On veux aller cherche les images correspondant au timbre
-        $image = new Image;
-
-        if ($getTimbres != false) {
-            foreach ($getTimbres as &$timbre) {
-                $getImages = $image->selectId($timbre['idTimbre'], 'timbre_idTimbre');
-                // On doit verifier si le timbre est en enchere
-                //$getEnchere = $timbre->selectId($timbre['idTimbre'], 'timbre_idTimbre');
-                // Si le timbre est en enchere
-                if($getImages){
-                    $timbre['images'] = $getImages[0]['nomImage'];
-                } 
-                else $timbre['images'] = false;
-            }
-        }
+        // On veux seulement aller chercher les timbres qui ne sont pas encore mis en enchere
+        $getTimbres = $timbre->getTimbreNotInEnchere($_SESSION['idMembre']);
         Twig::render('membre/membre-timbre.php', ['timbres' => $getTimbres]);
     }
 
