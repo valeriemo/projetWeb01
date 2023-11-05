@@ -30,6 +30,10 @@
 .button-1:not(:disabled):active {
     transform: translateY(.125rem);
 }
+.button-1 > a{
+  text-decoration: none;
+  color: inherit;
+ }
 .button-2{
   border: 2px solid var(--couleurAccent);
   border-radius: var(--space-mini);

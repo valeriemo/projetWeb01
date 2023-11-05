@@ -72,7 +72,45 @@
     min-width: 10ch;
 }
 
+.boite-timbre.portail-enchere{
+    min-width: 40vw;
+    margin-bottom: 20px;
 
+    & .timbre-info{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        max-width: max-content;
+        gap: var(--space-Xsmall);
+        & h4{
+            margin: 0;
+        }
+
+        & picture{
+            display: block;
+            width: 250px;
+        }
+        & > p{
+            border: none;
+        }
+        & span{
+            color: var(--couleurSecondaire2);
+        }
+
+        & > div:nth-of-type(2){
+            line-height: 30px;
+            max-width: 45ch;
+            & p:first-of-type{
+                margin-top: -10px;
+                font-size: var(--font-size-sm);
+            }
+            & p:nth-of-type(3){
+                margin-bottom: var(--space-mini);
+            }
+        }
+    }
+}
 
 @media (max-width:500px){
 .boite-timbre {

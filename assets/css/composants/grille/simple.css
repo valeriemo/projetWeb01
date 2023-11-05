@@ -6,3 +6,9 @@
     margin-right: var(--space-Xlarge);
     margin-bottom: var(--space-small);
 }
+
+.portail-grille-timbre{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(55ch, 1fr));
+    gap: var(--space-small);
+}

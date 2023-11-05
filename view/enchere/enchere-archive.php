@@ -478,19 +478,17 @@
     </aside>
 
     <main class="grille-principale">
+        {% if encheres == empty %}
+        <h2>Aucune archive à afficher</h2>
+        {% else %}
         {% for enchere in encheres %}
 
-        {% if enchere.status == 'enCours' %}
 
         {{ include('snippet/boite-timbre.php') }}
 
-        {% elseif enchere.status == 'futur' %}
-
-        {{ include('snippet/boite-timbre-futur.php') }}
-
-        {% endif %}
 
         {% endfor %}
+        {% endif %}
     </main>
 </div>
 

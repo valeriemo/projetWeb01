@@ -17,7 +17,7 @@
         
         <label>{{id}}Date début :<input name="dateDebut" type="date" required /></label>
         <label>Date de fin :<input name="dateFin" type="date" required /></label>
-        <label>Prix plancher :<input name="prixPlancher" type="text" placeholder="00,00" required /></label>
+        <label>Prix plancher :<input name="prixPlancher" type="text" placeholder="00.00" required /></label>
         {% if session.privilege == 2 %}
         <label>Coup de coeur :
             <select name="coupDeCoeur">

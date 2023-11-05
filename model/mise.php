@@ -15,4 +15,21 @@ class Mise extends Crud{
         'prixOffre',
         'dateHeure'
     ];
+
+    public function getMaxPriceById($idEnchere)
+    {
+        $sql = "SELECT MAX(`prixOffre`) FROM $this->table where `enchere_idEnchere` = :$this->foreignKey";
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(":$this->foreignKey", $idEnchere);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getNbMise($idEnchere){
+        $sql = "SELECT COUNT(`idMise`) FROM $this->table where `enchere_idEnchere` = :$this->foreignKey";
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(":$this->foreignKey", $idEnchere);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
 }

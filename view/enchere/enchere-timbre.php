@@ -1,7 +1,7 @@
 {{ include('snippet/header.php', {title: 'Enchere'}) }}
 
 <main>
-    <div class="chemin-site">Enchères en cours/{{enchere[0].nomTimbre}}</div>
+    <div class="chemin-site">Enchères en cours/{{enchere.nomTimbre}}</div>
 
     <section class="page-timbre">
         {% if images == false %}
@@ -10,35 +10,48 @@
             <picture>
                 <img loading="lazy" src="{{path}}assets/img/jpeg/noImg.jpg" alt="timbre" />
             </picture>
-        {% else %}
+            {% else %}
             {% for image in images %}
             <picture>
                 <img loading="lazy" src="{{path}}assets/img/public/{{image.nomImage}}" alt="timbre" />
             </picture>
             {% endfor %}
-        {% endif %}
+            {% endif %}
             <span>Cliquez pour voir de plus près</span>
 
         </div>
 
         <div>
             <hgroup>
-                <h2>{{enchere[0].nomTimbre}}</h2>
-                <p>Collection germatique</p>
-                {% if enchere[0].coupDeCoeur != null %}
+                <h2>{{enchere.nomTimbre}}</h2>
+                <p>Temps restant : {{enchere.tempsRestant.d}} jours et {{enchere.tempsRestant.h}} heures</p>
+                {% if enchere.coupDeCoeur != null %}
                 <p>Coup de coeur du Lord !</p>
                 {% endif %}
             </hgroup>
 
             <div class="mises">
                 <div>
-                    <p>Prix d'enchère actuel :<span> C$578,00</span></p>
+                    {% if enchere.prixMax == null %}
+                    <p>Prix d'enchère actuel :<span> C${{enchere.prixPlancher}}</span></p>
+                    {% else %}
+                    <p>Prix d'enchère actuel :<span> C${{enchere.prixMax}}</span></p>
+                    {% endif %}
+                    {% if enchere.nbMise == 0 %}
+                    <p>Soyez le premier à miser</p>
+                    {% else %}
+                    <p>Nombres de mises :<span>{{ enchere.nbMise}} offres</span></p>
+                    {% endif %}
                 </div>
 
                 <div>
                     <!-- Mettre un écouteur d'événement sur le bouton pour afficher le modal de mise -->
-                    <button data-miser class="button-2"><a href="{{path}}enchere/mise/{{enchere[0].idEnchere}}">Miser !</a></button>
-                    <button class="button-1">Mettre dans ses favoris</button>
+                    <button data-miser class="button-2"><a href="{{path}}enchere/mise/{{enchere.idEnchere}}">Miser !</a></button>
+                    {% if favoris == false %}
+                    <button class="button-1"><a href="{{path}}enchere/favoris/{{enchere.idEnchere}}">Mettre dans ses favoris</a></button>
+                    {% else %}
+                    <button class="button-1"><a href="{{path}}enchere/favoris/{{enchere.idEnchere}}">Retirer des favoris</a></button>
+                    {% endif %}
                 </div>
             </div>
 
@@ -50,19 +63,19 @@
                 </tr>
                 <tr>
                     <th>Pays d'origine :</th>
-                    <td>{{enchere[0].paysOrigine}}</td>
+                    <td>{{enchere.paysOrigine}}</td>
                 </tr>
                 <tr>
                     <th>Date d'émission :</th>
-                    <td>{{enchere[0].anneeEmission}}</td>
+                    <td>{{enchere.anneeEmission}}</td>
                 </tr>
                 <tr>
                     <th>Dimension :</th>
-                    <td>{{enchere[0].dimension}}</td>
+                    <td>{{enchere.dimension}}</td>
                 </tr>
                 <tr>
                     <th>Prix plancher</th>
-                    <td>{{enchere[0].prixPlancher}}$</td>
+                    <td>{{enchere.prixPlancher}}$</td>
                 </tr>
             </table>
 
