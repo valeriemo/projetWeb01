@@ -29,6 +29,9 @@ class ControllerTimbre extends Controller
         Twig::render("/timbre/timbre-create.php",  ['conditions' => $conditions]);
     }
 
+    /**
+     * Méthode pour enregistrer un nouveau timbre dans la base de données.
+     */
     public function store()
     {
         if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -42,20 +45,21 @@ class ControllerTimbre extends Controller
         if ($validation->isSuccess()) {
             $timbre = new Timbre();
             $insert_id = $timbre->insert($_POST);
-            foreach($_FILES["fileToUpload"]['name'] as $file) {
-                if($file != ''){
-                    $data['timbre_idTimbre'] = $insert_id;
-                    $data["nomImage"] = $file;
-                    $image = new Image;
-                    $image->insert($data);
+            if (isset($_FILES["fileToUpload"])) {
+                foreach ($_FILES["fileToUpload"]['name'] as $file) {
+                    if ($file != '') {
+                        $data['timbre_idTimbre'] = $insert_id;
+                        $data["nomImage"] = $file;
+                        $image = new Image;
+                        $image->insert($data);
+                    }
                 }
-                
-            }
-            for ($i=0; $i < count($_FILES["fileToUpload"]["name"]); $i++) { 
-                if($_FILES["fileToUpload"]["name"][$i] != ''){
-                    $target_dir = "assets/img/public/";
-                    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"][$i]);
-                    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i], $target_file);
+                for ($i = 0; $i < count($_FILES["fileToUpload"]["name"]); $i++) {
+                    if ($_FILES["fileToUpload"]["name"][$i] != '') {
+                        $target_dir = "assets/img/public/";
+                        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"][$i]);
+                        move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i], $target_file);
+                    }
                 }
             }
             // retour portail membre ou mettre ce timbre en enchere
@@ -69,7 +73,35 @@ class ControllerTimbre extends Controller
         }
     }
 
-    public function validate(){
+    public function update()
+    {
+        if ($_SERVER["REQUEST_METHOD"] != "POST") {
+            RequirePage::redirect('timbre/timbre-create');
+            exit();
+        }
+        extract($_POST);
+        $validation = $this->validate();
+
+        if ($validation->isSuccess()) {
+            $timbre = new Timbre();
+            $insert_id = $timbre->update($_POST);
+            $id = $insert_id;
+            Twig::render("timbre/timbre-enchere.php",  ['timbre' => $id]);
+        }
+    }
+
+    public function delete($id){
+        CheckSession::sessionAuth();
+        $image = new Image;
+        $deleteImage = $image->deleteImage($id);
+        $timbre =new Timbre;
+        $delete = $timbre->delete($id);
+        if($delete){
+            RequirePage::redirect('membre/timbre');
+        }
+    }
+    public function validate()
+    {
 
         RequirePage::library('Validation');
         $val = new Validation();
@@ -85,19 +117,22 @@ class ControllerTimbre extends Controller
         $val->name('certification')->value($certification)->required()->pattern('int')->min(1)->max(1);
         $val->name('condition_idCondition')->value($condition_idCondition)->required()->pattern('int')->min(1)->max(1);
         $val->name('membre_idMembre')->value($membre_idMembre)->required()->pattern('int');
-        
 
-        // Validation des images
-        foreach ($_FILES["fileToUpload"]["name"] as $key => $value) {
-            $fileSize = $_FILES["fileToUpload"]["size"][$key]; 
-            if ($fileSize > 2000000) {
-                $val->errors["images"] = "Une de vos photos est trop grande, la taille maximale autorisée est de 2MB.";
+        if (isset($_FILES["fileToUpload"])) {
+            // Validation des images
+            foreach ($_FILES["fileToUpload"]["name"] as $key => $value) {
+                $fileSize = $_FILES["fileToUpload"]["size"][$key];
+                if ($fileSize > 2000000) {
+                    $val->errors["images"] = "Une de vos photos est trop grande, la taille maximale autorisée est de 2MB.";
+                }
             }
         }
+
         return $val;
     }
 
-    public function show(){
+    public function show()
+    {
         CheckSession::sessionAuth();
 
         $timbre = new Timbre;
@@ -107,15 +142,15 @@ class ControllerTimbre extends Controller
         foreach ($getTimbres as &$timbre) {
             $getImages = $image->selectId($timbre['idTimbre'], 'timbre_idTimbre');
 
-            if($getImages){
+            if ($getImages) {
                 $timbre['images'] = $getImages[0]['nomImage'];
-            } 
-            else $timbre['images'] = false;
+            } else $timbre['images'] = false;
         }
         Twig::render('timbre/timbre-show.php', ['timbres' => $getTimbres]);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         CheckSession::sessionAuth();
         // On doit aller chercher les informations du timbre
         $idTimbre = $id;
@@ -123,8 +158,6 @@ class ControllerTimbre extends Controller
         $getTimbre = $timbre->selectId($idTimbre, 'idTimbre');
         $condition = new Condition;
         $conditions = $condition->select();
-        // On doit aller chercher les images du timbre
-        $image = new Image;
         Twig::render('timbre/timbre-edit.php', ['timbre' => $getTimbre[0], 'conditions' => $conditions]);
     }
 }

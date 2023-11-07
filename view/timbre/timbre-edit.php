@@ -5,7 +5,7 @@
     <!-- Step 1: remplir le formulaire et ensuite ajouter des images -->
     <h2>Remplir les champs à corriger</h2>
 
-    <form action="{{path}}timbre/store" method="POST" class="formulaire" enctype="multipart/form-data">
+    <form action="{{path}}timbre/update" method="POST" class="formulaire" enctype="multipart/form-data">
         {% if errors %}
         <div class="show-errors">
             <ul>
@@ -15,7 +15,7 @@
             </ul>
         </div>
         {% endif %}
-        
+        <input type="hidden" name="idTimbre" value="{{timbre.idTimbre}}">
         <label>Nom :<input value="{{timbre.nomTimbre}}" name="nomTimbre" type="text" min="3" max="45" /></label>
         <label>Couleurs :<input value="{{timbre.couleurs}}"  name="couleurs" type="text" max="150" /></label>
         <label>Pays d'origine :<input value="{{timbre.paysOrigine}}"  name="paysOrigine" type="text" min="2" max="25" /></label>
@@ -39,13 +39,7 @@
         </label>
 
         <input name="membre_idMembre" type="hidden" value="{{session.idMembre}}">
-
-        <label id="Images du timbre">Images (maximum de 2 images):
-            <input type="file" name="fileToUpload[]" multiple="multiple">
-            <input type="file" name="fileToUpload[]" multiple="multiple">
-        </label>
-
-        <input class="button-1" type="submit" value="Ajouter">
+        <input class="button-1" type="submit" value="Enregistrer les changements">
     </form>
 
 

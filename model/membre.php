@@ -27,7 +27,6 @@ class Membre extends Crud{
      * @return string
      */
     public function checkUser($courriel, $password){ 
-        
         $sql = "SELECT * FROM $this->table WHERE courriel = :courriel";
         $query = $this->prepare($sql);
         $query->bindValue(":courriel", $courriel);
@@ -43,7 +42,7 @@ class Membre extends Crud{
                 $_SESSION['fingerPrint'] = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
                 return true;
             } else {
-                echo 'no';
+                return false;
             }
         } else {
             return false;

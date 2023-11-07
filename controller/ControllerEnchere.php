@@ -23,7 +23,7 @@ class ControllerEnchere extends Controller
         // On va chercher les encheres 
         $getEncheres = $encheres->joinTimbreEnchere();
         // on doit aller chercher les favoris du membre si connecté
-        if (CheckSession::sessionAuth()) {
+        if (CheckSession::sessionCheck()) {
             $favoris = new Favoris;
             foreach ($getEncheres as $key => $value) {
                 $getEncheres[$key]['favoris'] = $favoris->getFavorisById($value['idEnchere']);
@@ -32,14 +32,18 @@ class ControllerEnchere extends Controller
         Twig::render("/enchere/enchere-show.php", ['encheres' => $getEncheres]);
     }
 
-    public function archive(){
+    /**
+     * Méthode pour afficher la page des encheres archivés.
+     */
+    public function archive()
+    {
         $encheres = new Enchere;
         // On va chercher les encheres 
         $getEncheres = $encheres->joinTimbreEnchere();
         // on devrait aller chercher les encheres ayant le statut archive
         $enchereArchive = [];
         foreach ($getEncheres as $enchere) {
-            if($enchere['status'] == 'archive'){
+            if ($enchere['status'] == 'archive') {
                 $enchereArchive[] = $enchere;
             }
         }
@@ -62,6 +66,18 @@ class ControllerEnchere extends Controller
     }
 
     /**
+     * Méthode pour retirer un enchere de ses favoris
+     */
+    public function favdelete($id)
+    {
+        CheckSession::sessionAuth();
+        $membre_idMembre = $_SESSION['idMembre'];
+        $enchere_idEnchere = $id;
+        $favoris = new Favoris;
+        $favoris->deleteFavoris($membre_idMembre, $enchere_idEnchere);
+        RequirePage::redirect('enchere/timbre/' . $enchere_idEnchere);
+    }
+    /**
      * Méthode pour afficher la page d'un timbre en enchere.
      */
     public function timbre($id)
@@ -69,18 +85,16 @@ class ControllerEnchere extends Controller
         // on a besoin des infos du timbre et de l'enchere
         $enchere = new Enchere;
         $getEnchere = $enchere->joinTimbreEnchereById($id, 'idEnchere');
-        // on a besoin de la condition du timbre
-        RequirePage::model('Condition');
-        $condition = new Condition;
-        $getCondition = $condition->getCondition($getEnchere['condition_idCondition']);
         // on doit aller chercher les images du timbre
         $images = new Image;
         $idTimbre = $getEnchere['timbre_idTimbre'];
         $getImages = $images->getImageById($idTimbre);
-        // on doit vérifier si le membre a mis l'enchere dans ses favoris
-        $favoris = new Favoris;
-        $getFavoris = $favoris->getFavorisById($id);
-        Twig::render("/enchere/enchere-timbre.php", ['enchere' => $getEnchere, 'condition' => $getCondition, 'images' => $getImages, 'favoris' => $getFavoris]);
+        // on doit vérifier si le membre a mis l'enchere dans ses favoris seulement si connecté
+        if (CheckSession::sessionCheck()) {
+            $favoris = new Favoris;
+            $getEnchere['favoris'] = $favoris->getFavorisById($id);
+        }
+        Twig::render("/enchere/enchere-timbre.php", ['enchere' => $getEnchere, 'images' => $getImages]);
     }
 
     /**
@@ -106,6 +120,12 @@ class ControllerEnchere extends Controller
         if ($validation->isSuccess()) {
             // je doit verifier si existe deja TIMBRE_idTimbre dans enchere doit etre unique
             $enchere = new Enchere;
+            $check = $enchere->selectId($_POST['timbre_idTimbre'], 'timbre_idTimbre');
+            if ($check) {
+                $errors['timbre_idTimbre'] = "Vous avez déjà une enchère pour ce timbre";
+                Twig::render("/enchere/enchere-create.php", ['errors' => $errors, 'timbre_idTimbre' => $id]);
+                exit();
+            }
             $enchere->insert($_POST);
             Twig::render("membre/membre-portail.php");
         } else {
@@ -148,15 +168,14 @@ class ControllerEnchere extends Controller
         if ($getEnchere['prixMax'] == null) {
             $prixSuggerer = $getEnchere['prixPlancher'];
             // Calculer 20% du prix actuel
-            $augmentation = $prixSuggerer * 0.20; 
+            $augmentation = $prixSuggerer * 0.20;
             // Ajouter l'augmentation au prix actuel
             $prixSuggerer = $prixSuggerer + $augmentation;
-        }else{
+        } else {
             $prixSuggerer = $getEnchere['prixMax'];
-            $augmentation = $prixSuggerer * 0.20; 
+            $augmentation = $prixSuggerer * 0.20;
             $prixSuggerer = $prixSuggerer + $augmentation;
             $prixSuggerer = number_format($prixSuggerer, 2, '.', '');
-
         }
         $getEnchere['prixSuggerer'] = $prixSuggerer;
         Twig::render("enchere/enchere-mise.php", ['enchere' => $getEnchere]);
@@ -186,12 +205,12 @@ class ControllerEnchere extends Controller
             if ($getEnchere['prixMax'] == null) {
                 $prixSuggerer = $getEnchere['prixPlancher'];
                 // Calculer 20% du prix actuel
-                $augmentation = $prixSuggerer * 0.20; 
+                $augmentation = $prixSuggerer * 0.20;
                 // Ajouter l'augmentation au prix actuel
                 $prixSuggerer = $prixSuggerer + $augmentation;
-            }else{
+            } else {
                 $prixSuggerer = $getEnchere['prixMax'];
-                $augmentation = $prixSuggerer * 0.20; 
+                $augmentation = $prixSuggerer * 0.20;
                 $prixSuggerer = $prixSuggerer + $augmentation;
                 $prixSuggerer = number_format($prixSuggerer, 2, '.', '');
             }

@@ -33,7 +33,7 @@ abstract class Crud extends PDO
     /**
      * Méthode pour sélectionner plusieurs éléments avec une foreign key
      */
-    public function selectAllById($value)
+    public function selectAllById($key, $value)
     {
 
         $sql = "SELECT * FROM $this->table WHERE $key = :$key";
@@ -41,6 +41,7 @@ abstract class Crud extends PDO
         $stmt->bindValue(":$key", $value);
         $stmt->execute();
         $count = $stmt->rowCount();
+        var_dump($sql);
 
         if ($count >= 1) {
             return $stmt->fetchAll();
@@ -70,7 +71,6 @@ abstract class Crud extends PDO
      */
     public function update($data)
     {
-
         $fieldName = Null;
         foreach ($data as $key => $value) {
             $fieldName .= "$key = :$key, ";

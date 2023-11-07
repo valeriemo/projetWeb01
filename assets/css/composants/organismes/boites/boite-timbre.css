@@ -73,10 +73,14 @@
 }
 
 .boite-timbre.portail-enchere{
+    display: flex;
+    justify-content: center;
     min-width: 40vw;
     margin-bottom: 20px;
+    max-height: max-content;
 
     & .timbre-info{
+        padding: var(--space-small) var(--space-XXXsmall);
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -85,6 +89,7 @@
         gap: var(--space-Xsmall);
         & h4{
             margin: 0;
+            font-size: var(--font-size-md);
         }
 
         & picture{
@@ -102,7 +107,7 @@
             line-height: 30px;
             max-width: 45ch;
             & p:first-of-type{
-                margin-top: -10px;
+                margin-top: -3px;
                 font-size: var(--font-size-sm);
             }
             & p:nth-of-type(3){

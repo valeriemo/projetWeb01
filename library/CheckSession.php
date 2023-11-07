@@ -10,7 +10,16 @@ class CheckSession{
         if(isset($_SESSION['fingerPrint']) && $_SESSION['fingerPrint'] == md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'])){
             return true;
         }else{
-            RequirePage::redirect('login');
+            RequirePage::redirect('membre/login');
+        }
+    }
+
+    static public function sessionCheck(){
+
+        if(isset($_SESSION['fingerPrint']) && $_SESSION['fingerPrint'] == md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'])){
+            return true;
+        }else{
+            return false;
         }
     }
 }

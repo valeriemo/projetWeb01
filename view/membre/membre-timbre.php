@@ -1,5 +1,7 @@
 {{ include('snippet/header.php', {title: 'Vos timbres'}) }}
 
+<!-- Page qui affiche les timbres d'un membre qui ne sont pas encore mis en enchere -->
+
 <main>
     <section class="dashboard">
         <header class="titre-section">
@@ -24,7 +26,7 @@
                 </div>
                 <a href="{{path}}enchere/create/{{timbre.idTimbre}}" class="button-1">Mettre ce timbre en enchère</a>
                 <a href="{{path}}timbre/edit/{{timbre.idTimbre}}" class="button-1">Éditer ce timbre</a>
-                <a href="{{path}}enchere/delete/{{timbre.idTimbre}}" class="button-1">Supprimer ce timbre</a>
+                <a href="{{path}}timbre/delete/{{timbre.idTimbre}}" class="button-1">Supprimer ce timbre</a>
 
 
             </article>

@@ -47,10 +47,10 @@
                 <div>
                     <!-- Mettre un écouteur d'événement sur le bouton pour afficher le modal de mise -->
                     <button data-miser class="button-2"><a href="{{path}}enchere/mise/{{enchere.idEnchere}}">Miser !</a></button>
-                    {% if favoris == false %}
+                    {% if enchere.favoris == false %}
                     <button class="button-1"><a href="{{path}}enchere/favoris/{{enchere.idEnchere}}">Mettre dans ses favoris</a></button>
                     {% else %}
-                    <button class="button-1"><a href="{{path}}enchere/favoris/{{enchere.idEnchere}}">Retirer des favoris</a></button>
+                    <button class="button-1"><a href="{{path}}enchere/favdelete/{{enchere.idEnchere}}">Retirer des favoris</a></button>
                     {% endif %}
                 </div>
             </div>
@@ -58,7 +58,7 @@
             <table>
                 <tr>
                     <th>Condition :</th>
-                    <td>{{condition.nomCondition}}</td>
+                    <td>{{enchere.condition}}</td>
 
                 </tr>
                 <tr>

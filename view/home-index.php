@@ -24,7 +24,7 @@
           enchère est une occasion de posséder un morceau de l'héritage postal
           mondial.
         </p>
-        <a class="button-1" href="#">Créer un compte</a>
+        <a class="button-1" href="{{path}}membre/create">Créer un compte</a>
       </section>
     </main>
 

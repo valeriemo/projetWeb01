@@ -21,7 +21,7 @@ class Enchere extends Crud
 
     /**
      * Méthode pour aller chercher toutes les enchères d'un membre
-     * Retoun un tableau d'enchères
+     * Retoune un tableau d'enchères
      */
     public function getTimbreIfEnchere($idMembre)
     {
@@ -93,6 +93,11 @@ class Enchere extends Crud
         } else {
             $enchere["status"] = "enCours";
         }
+        // On doit aller chercher la condition du timbre
+        RequirePage::model('Condition');
+        $condition = new Condition;
+        $getCondition = $condition->getCondition($enchere['condition_idCondition']);
+        $enchere['condition'] = $getCondition['nomCondition'];
         // On doit aller chercher les prix des mises
         RequirePage::model('Mise');
         $mise = new Mise;

@@ -5,6 +5,15 @@
     <h1 class="titre-section">Se connecter</h1>
 
     <form action="{{path}}membre/auth" method="POST" class="formulaire">
+        {% if errors %}
+        <div class="show-errors">
+            <ul>
+                {% for error in errors %}
+                <li class="error">{{error}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
         <label>Courriel :<input name="courriel" type="text" min="3" max="30" /></label>
 
         <!-- <label>Courriel :<input name="courriel" type="email" /></label> -->
