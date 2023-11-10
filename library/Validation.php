@@ -22,11 +22,12 @@ class Validation
         'url'           => '[A-Za-z0-9-:.\/_?&=#]+',
         'alpha'         => '[\p{L}]+',
         'words'         => '[\p{L}\s]+',
+        'prix'          => '\s*\$?\s*\d+(,\d+)?\s*$/',
         'alphanum'      => '[\p{L}0-9]+',
         'int'           => '[0-9]+',
         'float'         => '[0-9\.,]+',
         'tel'           => '[0-9+\s()-]+',
-        'text'          => '^(?=.{3,30}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._À-ÖØ-öø-ÿ]+(?<![_.])$',
+        'text'          => '^(?=.{3,30}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._À-ÖØ-öø-ÿ ]+(?<![_.])$',
         'file'          => '[\p{L}\s0-9-_!%&()=\[\]#@,.;+]+\.[A-Za-z0-9]{2,4}',
         'folder'        => '[\p{L}\s0-9-_!%&()=\[\]#@,.;+]+',
         'address'       => '[\p{L}0-9\s.,()°-]+',
@@ -37,6 +38,26 @@ class Validation
         'boolean'       => '/^(?:(1|y(?:es)?|t(?:rue)?|on)|(0|n(?:o)?|f(?:alse)?|off))$/i ',
         'email'         => '[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})'
     );
+
+    public function isDatePassed($date) {
+        $currentDate = new DateTime(); // Date actuelle
+        $dateToCheck = new DateTime($date); // Date à vérifier
+    
+        if ($dateToCheck < $currentDate){
+            $this->errors[] = 'La date de fin doit être supérieure à la date actuelle.' ;
+        }
+        return $this;
+    }
+
+    public function compareDate($dateDebut, $dateFin){
+        $dateDebut = new DateTime($dateDebut);
+        $dateFin = new DateTime($dateFin);
+
+        if ($dateDebut > $dateFin){
+            $this->errors[] = 'La date de début doit être avant la date de fin.' ;
+        } 
+        return $this;
+    }
 
     /**
      * @var array $errors

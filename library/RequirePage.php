@@ -32,4 +32,9 @@ class RequirePage
         exit;
     }
 
+    
+    static public function core($page) {
+        return require_once 'core/' . $page . '.php';
+    }
+
 }

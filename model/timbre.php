@@ -1,5 +1,6 @@
 <?php
-require_once('Crud.php');
+//require_once('Crud.php');
+RequirePage::core("Crud");
 
 class Timbre extends Crud{
 

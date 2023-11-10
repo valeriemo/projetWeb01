@@ -4,7 +4,7 @@
     margin-bottom:  var(--space-medium);;
     & h1{
         font-size: var(--font-size-md);
-        margin-bottom:  var(--space-small);;
+        margin-bottom:  var(--space-medium);;
     }
     .button-1{
         max-width: max-content;
@@ -20,4 +20,56 @@
 .dashboard_action{
     flex: 30%;
 }
-
+.membre-main{
+    display: flex;
+    flex-direction: column;
+}
+@media (max-width:500px){
+    .membre-main.marge{
+        margin-left: var(--font-size-md);
+    }
+    .membre-main{
+        align-items: center;
+        max-width: 500px;
+        & h1{
+            font-size: var(--font-size-md);
+        }
+        & form{
+            margin-left: 0;
+            max-width: max-content;
+            & input{
+                margin-top: 0;
+            }
+            & h2{
+                font-size: var(--font-size-md);
+            }
+        }
+        & .grille-simple{
+            grid-template-columns: none;
+        }
+        .portail-grille-timbre{
+            grid-template-columns: repeat(auto-fit, minmax(40ch, 1fr));
+        }
+        .portail-grille-timbre .boite-timbre.portail-enchere{
+            min-width: 0;
+            max-width: 30ch;
+            flex-wrap: wrap;
+        }
+        & .edit-profil{
+            flex-direction: column;
+            align-items: flex-start;
+            > h2{
+                font-size: var(--font-size-md);
+            }
+        }
+    }
+    .dashboard > h1{
+        text-align: center;
+    }
+    .dashboard .grille-principale.portail{
+        grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr));
+        & .button-1{
+            max-height: none;
+        }
+    }
+}

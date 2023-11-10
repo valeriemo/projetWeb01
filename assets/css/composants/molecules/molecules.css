@@ -43,7 +43,11 @@
     height: 1px;
     margin-bottom: var(--space-small);
 }
-
+.titre-section > .msg{
+    margin-left: 0;
+    margin-top: var(--space-small);
+    font-weight: 700;
+}
 /* Adaptation mobile */
 @media (max-width: 500px){
     .titre-section{
@@ -108,7 +112,6 @@
     border-style: none;
     display: inline-block;
     font-size: var(--font-nav-sm);
-    padding: var(--space-XXXsmall);
     box-shadow: 0 8px 6px -7px #06032612;
 
 }
@@ -148,3 +151,76 @@
         margin-right: var(--space-XXsmall);
     }
 }
+
+/*||||||||||||||||||||||||||||||||||||| .mises-liste |||||||||||||||||||||||||||||||||||||||||*/
+.mises-liste{
+    font-family: var(--font-lato);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-XXsmall);
+    & a{
+        color: var(--couleurAccent);
+        text-decoration: none;
+        font-weight: 800;
+    }
+    & span{
+        color: var(--couleurSecondaire2);
+        margin-left: var(--space-medium);
+        font-style: italic;
+    }
+}
+.mises-liste::before{
+    content: '—' ;
+    margin-right: var(--space-mini);
+}
+
+/*||||||||||||||||||||||||||||||||||||| .edit-profil |||||||||||||||||||||||||||||||||||||||||*/
+.titre-portail{
+    margin-left: 250px;
+    margin-bottom: var(--space-medium);
+}
+.edit-profil{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: var(--space-large);
+    margin-bottom: var(--space-medium);
+    & div:last-of-type{
+        justify-content: space-between;
+        align-items: center;
+    }
+    & form{
+        margin-bottom: 0;
+        & .msg{
+            margin-left: 250px;
+            color: var(--couleurAccent);
+            font-family: var(--font-lato);
+            font-weight: 800;
+        }
+    }
+    & form .button-1{
+        margin-top: var(--space-mini);
+        font-size: var(--font-size-sm);
+        margin-left: auto;
+    }
+    & form > label{
+        gap: var(--space-XXXsmall);
+
+    }
+    & a{
+        margin-top: var(--space-medium)
+    }
+    }
+
+    .msg{
+        margin-left: 250px;
+        color: var(--couleurAccent);
+        font-family: var(--font-lato);
+        font-weight: 800;
+        margin-bottom: var(--space-XXsmall);
+    }
+
+    @media (max-width:500px){
+        .msg{
+            margin-left: 0;
+        }
+    }

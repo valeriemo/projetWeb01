@@ -2,7 +2,7 @@
 
 <!-- Page qui affiche les timbres d'un membre qui ne sont pas encore mis en enchere -->
 
-<main>
+<main class="membre-main">
     <section class="dashboard">
         <header class="titre-section">
             <h2>

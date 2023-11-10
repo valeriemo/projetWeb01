@@ -13,21 +13,27 @@
     flex-basis: 40vw;
     /* min-width: 450px; */
 }
-.page-timbre img{
-    position: relative;
-}
+
+.page-timbre img:nth-of-type(2){
+    width: 40vw;
+} 
+
+
 /* icone Zoom */
 .page-timbre > div:first-of-type > div{
     display: flex;
     margin-top: var(--space-mini);
     justify-content: flex-start;
-    gap: var(--space-XXXsmall);
+    gap: var(--space-small);
     & img{
         max-width: 180px;
         cursor: pointer;
     }
 }
-
+.page-timbre > div > hgroup figure{
+    max-width: 8vw;
+    margin-top: var(--space-Xsmall);
+}
 
 
 /* Section Texte */
@@ -37,7 +43,7 @@
 
 }
 .page-timbre hgroup{
-    margin-bottom: var(--space-small);
+    margin-bottom: var(--space-Xsmall);
 }
 .page-timbre p{
     font-family: var(--font-lato);
@@ -64,6 +70,7 @@
     padding: var(--space-XXsmall);
     font-weight: 700;
 }
+
 /* section description et détail */
 .page-timbre dl{
     margin-top: var(--space-small);
@@ -87,7 +94,13 @@
         cursor: pointer;
     }
 }
-
+.page-timbre .timbre-picture{
+    display: flex;
+    flex-direction: column;
+    & > picture:nth-of-type(2) > img:nth-of-type(2){
+        max-width: 17vw;
+    }
+}
 .page-timbre dl dd{
     margin-top: var(--space-XXsmall);
     margin-bottom: var(--space-XXsmall);
@@ -140,22 +153,27 @@
 
 /* section prix d'enchere */
 .mises > div:first-of-type{
-    padding: var(--space-XXXsmall);
+    min-width: 28ch;
+    padding: var(--space-Xsmall);
     text-align: center;
     border: 1px solid var(--couleurAccent);
     border-radius: var(--space-mini);
 }
-
+.mises > div > p:nth-of-type(2){
+    margin-top: var(--space-XXsmall);
+}
 .mises p{
     max-width: 20ch;
     font-weight: 600;
     color: var(--darkest);
     line-height: 2em;
 }
-.mises p span{
+.mises span{
     padding-left: var(--space-mini);
     font-weight: 800;
     font-size: var(--font-size-md);
+    font-family: var(--font-playfair);
+    margin-bottom: var(--space-small);
 }
 /* section button action */
 .mises > div:last-of-type{
@@ -201,7 +219,10 @@
     & img{
         max-width: 130px;
     }
-}
+    }
+    .page-timbre picture img:last-of-type{
+        width: 90vw;
+    }
     .page-timbre{
         margin-left: var(--space-Xsmall);
         margin-right: var(--space-Xsmall);

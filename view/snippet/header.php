@@ -9,7 +9,7 @@
   <!-- ICI CA VA CHANGER DYNAMIQUEMENT -->
   <title>Lord Stampee | {{title}}</title>
   <link rel="stylesheet" href="{{path}}assets/css/style.css" />
-  <script defer src="assets/scripts/main.js"></script>
+  <script defer src="{{path}}assets/scripts/main.js"></script>
 </head>
 
 <body>
@@ -106,14 +106,25 @@
   <nav class="nav-mobile">
     <header class="nav-head">
       <div>
-        <a class="button-2" href="#">Se connecter</a>
-        <a href="#">Créer un compte</a>
+        {% if guest == 1 %}
+        <a class="button-2" href="{{path}}membre/login">Se connecter</a>
+        <a href="{{path}}membre/create">Créer un compte</a>
+        {% else %}
+        <a class="button-2" href="{{path}}membre/logout">Se déconnecter</a>
+        <a href="{{path}}membre/index" class="icone-style-1">
+          <div></div>
+          <picture data-panier>
+            <img loading="lazy" src="{{path}}assets/img/svg/icone/home_1.svg" alt="maison icone" />
+          </picture>
+        </a>
+        {% endif %}
         <div class="icone-style-1">
           <div></div>
           <picture>
             <img loading="lazy" src="{{path}}assets/img/svg/icone/panier-achat-dark.svg" alt="panier achat icone" />
           </picture>
         </div>
+
       </div>
     </header>
 
@@ -135,7 +146,7 @@
       <div class="menu__ferme" data-js-menu-ferme></div>
       <nav>
         <ul class="menu__liste">
-          <li><a href="{{path}}page-enchere.html">Enchères</a></li>
+          <li><a href="{{path}}enchere/show">Enchères</a></li>
           <li><a href="#">Lord Reginald Stampee</a></li>
           <li>
             <div class="texte-icone">

@@ -1,6 +1,6 @@
 .boite-timbre{
     max-width: 30ch;
-    max-height: 536px;
+    max-height: max-content;
     border-radius: var(--space-mini);
     font-family: var(--font-lato);
     /*padding: var(--space-XXsmall);*/
@@ -25,12 +25,31 @@
     padding-right: var(--space-XXsmall);
     line-height: 2rem;
     color: var(--darkest);
+    & figure{
+        max-width: 90px;
+    }
+    & .icone-text.timbre{
+        margin-bottom: var(--space-Xsmall);
+    }
+}
+.timbre-info_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & h4{
+        margin-bottom: 0;
+    }
+    & > div > p{
+        margin-top: -10px;
+        font-size: var(--font-size-xsm);
+
+    }
 }
 .timbre-info .button-1{
     display: block;
     text-align: center;
-    margin-top: var(--space-small);
-    margin-bottom: var(--space-small);
+    margin-top: var(--space-XXsmall);
+    margin-bottom: var(--space-XXsmall);
 }
 /* nom du timbre */
 .timbre-info > h4{
@@ -75,7 +94,7 @@
 .boite-timbre.portail-enchere{
     display: flex;
     justify-content: center;
-    min-width: 40vw;
+    min-width: 50ch;
     margin-bottom: 20px;
     max-height: max-content;
 
@@ -114,6 +133,13 @@
                 margin-bottom: var(--space-mini);
             }
         }
+    }
+}
+
+.boite-timbre.futur{
+    max-height: 50ch;
+    & > .timbre-info h4{
+        margin-top: var(--space-XXsmall);
     }
 }
 

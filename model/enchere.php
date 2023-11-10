@@ -1,5 +1,6 @@
 <?php
-require_once('Crud.php');
+//require_once('Crud.php');
+RequirePage::core("Crud");
 
 class Enchere extends Crud
 {
@@ -115,5 +116,14 @@ class Enchere extends Crud
             $enchere['image'] = $image['nomImage'];
         }
         return $enchere;
+    }
+
+    public function getIdMembre($id){
+        $sql = "SELECT membre_idMembre FROM $this->table where idEnchere = :idEnchere";
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(":idEnchere", $id);
+        $stmt->execute();
+        $idMembre = $stmt->fetch();
+        return $idMembre['membre_idMembre'];
     }
 }

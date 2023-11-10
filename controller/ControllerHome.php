@@ -5,7 +5,7 @@ class ControllerHome extends Controller
 {
 
     /**
-     * Méthode pour afficher la page d'accueil. Affiche tous les projets en cours.
+     * Méthode pour afficher la page d'accueil. 
      */
     public function index()
     {

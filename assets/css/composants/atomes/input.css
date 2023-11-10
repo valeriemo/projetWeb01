@@ -30,7 +30,7 @@ button{
 
 @media (max-width: 500px){
     input{
-        min-height: 60px;
+        min-height: 40px;
         margin-top: 20px;
         font-size: 20px;
     }

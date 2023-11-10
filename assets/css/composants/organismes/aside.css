@@ -1,12 +1,12 @@
 aside{
     display: flex;
     flex-direction: column;
-    gap: var(--space-small);
+    gap: var(--space-XXsmall);
     line-height: var(--space-small);
     font-family: var(--font-lato);
     font-size: var(--font-nav-sm);
 }
-aside h4{
+aside form h4{
     margin-bottom: var(--space-XXsmall);
 }
 .affichage{
@@ -21,15 +21,22 @@ aside h4{
     background-color: var(--darkest);
 }
 
-
-aside > section > div{
+aside section  div{
     display: flex;
     max-width: 100px;
     flex-wrap: nowrap;
     align-items: center;
     gap: var(--space-mini)
 } 
-aside > section > div > label{
+aside section form{
+    margin-left: 0;
+    margin-bottom: 0;
+    & .button-1{
+        margin-top: var(--space-XXsmall);
+        font-size: var(--font-nav-sm);
+    }
+}
+aside section  div > label{
     display: flex;
     font-family: var(--font-lato);
     font-size: var(--font-size-xsm);
@@ -41,7 +48,7 @@ aside section input[type="search"]{
     width: 210px;
     box-shadow: 0 8px 6px -7px #06032612;
 }
-aside > section > div > label> input{
+aside > section  div > label> input{
     max-width: 70px;
     border: none;
     padding: var(--space-mini);

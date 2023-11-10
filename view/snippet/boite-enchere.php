@@ -27,8 +27,10 @@
                     <p>Se termine dans :</p>
                     <p><span> {{enchere.tempsRestant.d}} jours, {{enchere.tempsRestant.h}}H {{enchere.tempsRestant.i}}Min</span></p>
                     <p>Nombre de mises:<span> {{enchere.nbMise}}</span></p>
-                    <a class="button-1" href="{{path}}enchere/timbre/{{enchere.idEnchere}}">Voir cette enchere</a>
-
+                    <a class="button-1" href="{{path}}enchere/timbre/{{enchere.idEnchere}}">Voir cette enchère</a>
+                    {% if enchere.membre_idMembre == session.idMembre %}
+                    <a class="button-1" href="{{path}}enchere/edit/{{enchere.idEnchere}}">Modifier cette enchère</a>
+                    {% endif %}
                 </div>
 
             </div>

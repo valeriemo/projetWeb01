@@ -1,5 +1,6 @@
 <?php
-require_once('Crud.php');
+//require_once('Crud.php');
+RequirePage::core("Crud");
 
 class Membre extends Crud{
 
@@ -46,6 +47,20 @@ class Membre extends Crud{
             }
         } else {
             return false;
+        }
+    }
+
+    public function updateMembre($primaryKey, $fieldName, $fieldValue)
+    {
+        $sql = "UPDATE $this->table SET $fieldName = :fieldValue WHERE $this->primaryKey = :idMembre";
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(':idMembre', $primaryKey);
+        $stmt->bindValue(':fieldValue', $fieldValue);
+    
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return $stmt->errorInfo();
         }
     }
 }

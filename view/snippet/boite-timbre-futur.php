@@ -1,8 +1,8 @@
-<article class="boite-timbre">
+<article class="boite-timbre futur">
     {% if enchere.favoris == true %}
     <img class="timbre-signet favoris" src="{{path}}assets/img/svg/icone/bookmark-gold.svg" alt="signet" />
     {% else %}
-    <img class="timbre-signet favoris" src="{{path}}assets/img/svg/icone/bookmark2" alt="signet" />
+    <img class="timbre-signet favoris" src="{{path}}assets/img/svg/icone/bookmark2.svg" alt="signet" />
     {% endif %}
 
     {% if enchere.image is empty %}

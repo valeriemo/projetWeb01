@@ -2,7 +2,8 @@
 session_start();
 define('PATH_DIR', 'http://localhost:8080/repo/projetWeb01/');
 
-require_once(__DIR__ . '/controller/Controller.php');
+require_once __DIR__ . "/core/Controller.php";
+//require_once(__DIR__ . '/controller/Controller.php');
 require_once(__DIR__ . '/library/RequirePage.php');
 require_once(__DIR__ . '/vendor/autoload.php');
 require_once(__DIR__ . '/library/Twig.php');

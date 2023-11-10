@@ -1,18 +1,11 @@
 <?php
 RequirePage::model('Enchere');
-RequirePage::model('mise');
+RequirePage::model('Mise');
 RequirePage::model('Image');
 RequirePage::model('Favoris');
 
 class ControllerEnchere extends Controller
 {
-    /**
-     * Méthode pour afficher la page d'accueil. Affiche tous les projets en cours.
-     */
-    public function index()
-    {
-        Twig::render("/enchere/enchere-index.php");
-    }
 
     /**
      * Méthode pour afficher la page de tous les encheres.
@@ -29,7 +22,9 @@ class ControllerEnchere extends Controller
                 $getEncheres[$key]['favoris'] = $favoris->getFavorisById($value['idEnchere']);
             }
         }
-        Twig::render("/enchere/enchere-show.php", ['encheres' => $getEncheres]);
+        $condition = new Condition;
+        $conditions = $condition->getAllCondition();
+        Twig::render("/enchere/enchere-show.php", ['encheres' => $getEncheres, 'conditions' => $conditions]);
     }
 
     /**
@@ -47,7 +42,66 @@ class ControllerEnchere extends Controller
                 $enchereArchive[] = $enchere;
             }
         }
-        Twig::render("/enchere/enchere-archive.php", ['encheres' => $enchereArchive]);
+        $condition = new Condition;
+        $conditions = $condition->getAllCondition();
+        Twig::render("/enchere/enchere-archive.php", ['encheres' => $enchereArchive, 'conditions' => $conditions]);
+    }
+
+    /**
+     * Méthode pour rechercher un enchere par nom, pays ou prix
+     */
+    public function search()
+    {
+        if ($_SERVER["REQUEST_METHOD"] != "POST") {
+            RequirePage::redirect('enchere/enchere-mise');
+            exit();
+        }
+        $data = $_POST;
+        // Recherche par prix
+        if (isset($data['prixMin'])) {
+            $message = 'Résultat de la recherche par prix: ' . $data['prixMin'] . ' $ à ' . $data['prixMax'] . ' $';
+            $prixMin = $data['prixMin'];
+            $prixMax = $data['prixMax'];
+            $encheres = new Enchere;
+            $getEncheres = $encheres->joinTimbreEnchere();
+            $searchResult = [];
+            foreach ($getEncheres as $enchere) {
+                if ($enchere['prixMax'] == null) {
+                    if ($enchere['prixPlancher'] >= $prixMin && $enchere['prixPlancher'] <= $prixMax) {
+                        $searchResult[] = $enchere;
+                    }
+                } else {
+                    if ($enchere['prixMax'] >= $prixMin && $enchere['prixMax'] <= $prixMax) {
+                        $searchResult[] = $enchere;
+                    }
+                }
+            }
+            $condition = new Condition;
+            $conditions = $condition->getAllCondition();
+            Twig::render("/enchere/enchere-show.php", ['encheres' => $searchResult, 'conditions' => $conditions, 'message' => $message]);
+        }
+
+        // Recherche par nom ou pays
+        foreach ($data as $key => $value) {
+            $where = $key;
+            $search = $value;
+        }
+        if ($where == 'nomTimbre') {
+            $message = 'Résultat de la recherche par nom: ' . $search;
+        } else {
+            $message = 'Résultat de la recherche par pays d\'origine: ' . $search;
+        }
+        $encheres = new Enchere;
+        $getEncheres = $encheres->joinTimbreEnchere();
+        $searchResult = [];
+        foreach ($getEncheres as $enchere) {
+            if ($enchere[$where] == $search) {
+                $searchResult[] = $enchere;
+            }
+        }
+        $condition = new Condition;
+        $conditions = $condition->getAllCondition();
+        Twig::render("/enchere/enchere-show.php", ['encheres' => $searchResult, 'conditions' => $conditions, 'message' => $message]);
     }
 
 
@@ -143,11 +197,24 @@ class ControllerEnchere extends Controller
         $val = new Validation();
         extract($_POST);
 
-        $val->name('dateDebut')->value($_POST['dateDebut'])->pattern('date_ymd')->required();
-        $val->name('dateFin')->value($_POST['dateFin'])->pattern('date_ymd')->required();
-        $val->name('prixPlancher')->value($_POST['prixPlancher'])->required();
-        $val->name('timbre_idTimbre')->value($_POST['timbre_idTimbre'])->pattern('int')->min(1)->max(5)->required();
-        $val->name('membre_idMembre')->value($_POST['membre_idMembre'])->pattern('int')->min(1)->max(5)->required();
+        if (isset($_POST['dateDebut'])) {
+            $val->name('dateDebut')->value($_POST['dateDebut'])->pattern('date_ymd')->required()->isDatePassed($_POST['dateDebut']);
+        }
+        if (isset($_POST['dateFin'])) {
+            $val->name('dateFin')->value($_POST['dateFin'])->pattern('date_ymd')->required()->compareDate($_POST['dateDebut'], $_POST['dateFin']);
+        }
+        if (isset($_POST['prixPlancher'])) {
+            $val->name('prixPlancher')->value($_POST['prixPlancher'])->required();
+        }
+        if (isset($_POST['coupDeCoeur'])) {
+            $val->name('coupDeCoeur')->value($_POST['coupDeCoeur'])->pattern('int')->min(0)->max(1)->required();
+        }
+        if (isset($_POST['timbre_idTimbre'])) {
+            $val->name('timbre_idTimbre')->value($_POST['timbre_idTimbre'])->pattern('int')->min(1)->max(5)->required();
+        }
+        if (isset($_POST['membre_idMembre'])) {
+            $val->name('membre_idMembre')->value($_POST['membre_idMembre'])->pattern('int')->min(1)->max(5)->required();
+        }
         return $val;
     }
 
@@ -155,16 +222,23 @@ class ControllerEnchere extends Controller
      * Méthode pour afficher la page de mise d'une enchere.
      */
     public function mise($id)
+
     {
         CheckSession::sessionAuth();
         // On doit aller chercher l'enchere avec le timbre
         $enchere = new Enchere;
         $getEnchere = $enchere->joinTimbreEnchereById($id, 'idEnchere');
+        $getEnchere = $this->getPrice20($getEnchere);
 
-        // On doit aller chercher la dernière mise
-        $mise = new Mise;
-        $getMise = $mise->getMaxPriceById($id);
-        $getEnchere['prixMax'] = $getMise['MAX(`prixOffre`)'];
+        Twig::render("enchere/enchere-mise.php", ['enchere' => $getEnchere]);
+    }
+
+    /**
+     * Méthode pour calculer le prix suggéré
+     */
+    public function getPrice20($getEnchere)
+    {
+        // On propose 20% de plus que le prix actuel
         if ($getEnchere['prixMax'] == null) {
             $prixSuggerer = $getEnchere['prixPlancher'];
             // Calculer 20% du prix actuel
@@ -178,7 +252,7 @@ class ControllerEnchere extends Controller
             $prixSuggerer = number_format($prixSuggerer, 2, '.', '');
         }
         $getEnchere['prixSuggerer'] = $prixSuggerer;
-        Twig::render("enchere/enchere-mise.php", ['enchere' => $getEnchere]);
+        return $getEnchere;
     }
 
     /**
@@ -190,32 +264,76 @@ class ControllerEnchere extends Controller
             RequirePage::redirect('enchere/enchere-mise');
             exit();
         }
+        // On doit vérifier si le membre n'est pas le propriétaire de l'enchere
+        $id = $_POST['enchere_idEnchere'];
+        $enchere = new Enchere;
+        $checkId = $enchere->getIdMembre($id);
+        if ($checkId == $_SESSION['idMembre']) {
+            $errors['idMembre'] = "Vous ne pouvez pas miser sur votre propre enchère";
+            $enchere = new Enchere;
+            $getEnchere = $enchere->joinTimbreEnchereById($id, 'idEnchere');
+            $getEnchere = $this->getPrice20($getEnchere);
+            $errors = $errors ?? [];
+            Twig::render("enchere/enchere-mise.php", ['errors' => $errors, 'enchere' => $getEnchere]);
+            exit();
+        }
         RequirePage::library('Validation');
         $val = new Validation();
-        $val->name('prixOffre')->value($_POST['prixOffre'])->required();
-        $id = $_POST['enchere_idEnchere'];
-        if ($val->isSuccess()) {
+        $val->name('prixOffre')->value($_POST['prixOffre'])->required()->pattern('float');
+        RequirePage::model('Mise');
+        $mise = new Mise;
+        $getMise = $mise->getMaxPriceById($id);
+
+        $errors = [];
+        if ($_POST['prixOffre'] <= $getMise['MAX(`prixOffre`)']) {
+            $errors[] = 'Votre mise doit être plus élevée que la dernière mise';
+        }
+
+        if ($val->isSuccess() && empty($errors)) {
             $mise = new Mise;
             $mise->insert($_POST);
             RequirePage::redirect('enchere/timbre/' . $id);
         } else {
-            $errors = $val->getErrors();
+            // On doit aller chercher l'enchere avec le timbre
             $enchere = new Enchere;
             $getEnchere = $enchere->joinTimbreEnchereById($id, 'idEnchere');
-            if ($getEnchere['prixMax'] == null) {
-                $prixSuggerer = $getEnchere['prixPlancher'];
-                // Calculer 20% du prix actuel
-                $augmentation = $prixSuggerer * 0.20;
-                // Ajouter l'augmentation au prix actuel
-                $prixSuggerer = $prixSuggerer + $augmentation;
-            } else {
-                $prixSuggerer = $getEnchere['prixMax'];
-                $augmentation = $prixSuggerer * 0.20;
-                $prixSuggerer = $prixSuggerer + $augmentation;
-                $prixSuggerer = number_format($prixSuggerer, 2, '.', '');
-            }
-            $getEnchere['prixSuggerer'] = $prixSuggerer;
+            $getEnchere = $this->getPrice20($getEnchere);
+            $errors = $errors ?? [];
             Twig::render("enchere/enchere-mise.php", ['errors' => $errors, 'enchere' => $getEnchere]);
+        }
+    }
+
+
+    public function edit($idEnchere)
+    {
+        CheckSession::sessionAuth();
+        $enchere = new Enchere;
+        $getEnchere = $enchere->joinTimbreEnchereById($idEnchere, 'idEnchere');
+        if ($getEnchere['status'] == 'archive') {
+            $errors['status'] = "Vous ne pouvez pas modifier une enchère archivée";
+            Twig::render("enchere/enchere-edit.php", ['errors' => $errors, 'enchere' => $getEnchere]);
+            exit();
+        }
+        Twig::render("enchere/enchere-edit.php", ['enchere' => $getEnchere]);
+    }
+
+    public function update()
+    {
+        if ($_SERVER["REQUEST_METHOD"] != "POST") {
+            RequirePage::redirect('enchere/enchere-mise');
+            exit();
+        }
+        extract($_POST);
+        $validation = $this->validate();
+
+        if ($validation->isSuccess()) {
+            var_dump($_POST);
+            $enchere = new enchere();
+            $enchere->update($_POST);
+            RequirePage::redirect('membre/enchere');
+        } else {
+            $errors = $validation->getErrors();
+            Twig::render("enchere/enchere-edit.php", ['errors' => $errors]);
         }
     }
 }

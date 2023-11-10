@@ -13,7 +13,7 @@
           <span class="scribe">Bienvenue</span> dans l'excellence de l'enchère
           de timbres.
         </h1>
-          <a class="button-1" href="{{path}}enchere/index">Parcourir les enchères</a>
+          <a class="button-1" href="{{path}}enchere/show">Parcourir les enchères</a>
       </section>
 
       <section class="boite-action">
@@ -24,7 +24,11 @@
           enchère est une occasion de posséder un morceau de l'héritage postal
           mondial.
         </p>
+        {% if guest == 1 %}
+        <a class="button-1" href="{{path}}membre/login">Se connecter</a>
+        {% else %}
         <a class="button-1" href="{{path}}membre/create">Créer un compte</a>
+        {% endif %}
       </section>
     </main>
 

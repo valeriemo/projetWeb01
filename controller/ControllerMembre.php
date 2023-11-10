@@ -9,7 +9,7 @@ RequirePage::library('Validation');
 class ControllerMembre extends Controller
 {
     /**
-     * Méthode pour afficher la page d'accueil. Affiche tous les projets en cours.
+     * Méthode pour afficher la page de portail d'un membre
      */
     public function index()
     {
@@ -78,12 +78,21 @@ class ControllerMembre extends Controller
     {
         extract($_POST);
         $val = new Validation();
-        $val->name('password')->value($password)->pattern('alphanum')->min(6)->max(20)->required();
-        $val->name('courriel')->value($courriel)->pattern('email')->required()->max(50);
-        $val->name('dateInscription')->value($dateInscription)->required()->pattern('date_ymd');
-        $val->name('nom')->value($nom)->pattern('text')->max(30)->min(3)->required();
-        $val->name('prenom')->value($prenom)->pattern('text')->max(30)->min(3)->required();
-
+        if(isset($_POST['password'])){
+            $val->name('password')->value($password)->pattern('alphanum')->min(6)->max(20)->required();
+        }
+        if(isset($_POST['courriel'])){
+            $val->name('courriel')->value($courriel)->pattern('email')->required()->max(50);
+        }
+        if(isset($_POST['dateInscription'])){
+            $val->name('dateInscription')->value($dateInscription)->required()->pattern('date_ymd');
+        }
+        if(isset($_POST['nom'])){
+            $val->name('nom')->value($nom)->pattern('text')->max(30)->min(3)->required();
+        }
+        if(isset($_POST['prenom'])){
+            $val->name('prenom')->value($prenom)->pattern('text')->max(30)->min(3)->required();
+        }
         return $val;
     }
 
@@ -191,9 +200,49 @@ class ControllerMembre extends Controller
                 $mise['enchere'] = $enchere;
             }
         }
-        var_dump($getMises);
         Twig::render('membre/membre-mises.php', ['mises' => $getMises]);
     }
+
+    public function edit($id){
+        CheckSession::sessionAuth();
+        $membre = new Membre;
+        $getMembre = $membre->selectId($_SESSION['idMembre'], 'idMembre');
+        Twig::render('membre/membre-edit.php', ['membre' => $getMembre]);
+    }
+
+    public function update(){
+        CheckSession::sessionAuth();
+        $membre = new Membre;
+        $data = $_POST;
+        foreach ($data as $key => $value) {
+            $fieldName = $key;
+            $fieldValue = $value;
+        }
+        $val = $this->validate($_POST);
+        if ($val->isSuccess()){
+            $update = $membre->updateMembre($_SESSION['idMembre'], $fieldName, $fieldValue);
+            if($update){
+                $message = 'Votre profil a été mis à jour';
+                $getMembre = $membre->selectId($_SESSION['idMembre'], 'idMembre');
+                Twig::render('membre/membre-edit.php', ['membre' => $getMembre, 'message' => $message]);
+            }
+        } else {
+            $errors = $val->getErrors();
+            $getMembre = $membre->selectId($_SESSION['idMembre'], 'idMembre');
+            Twig::render('membre/membre-edit.php', ['membre' => $getMembre, 'errors' => $errors]);
+        }
+
+    }
+
+    public function delete($id){
+        CheckSession::sessionAuth();
+        $membre = new Membre;
+        $delete = $membre->delete($id, 'idMembre');
+        if($delete){
+            RequirePage::redirect('membre/login');
+        }
+    }
+    
 
     /**
      * Méthode pour déconnecter un utilisateur

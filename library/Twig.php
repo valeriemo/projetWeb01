@@ -14,6 +14,8 @@ class Twig
         $loader = new \Twig\Loader\FilesystemLoader('view');
         $twig = new \Twig\Environment($loader, array(
             'auto_reload' => true,
+            'charset' => 'UTF-8',
+            'locale' => 'fr_CA'
         ));
 
         $twig->addGlobal('path', PATH_DIR);

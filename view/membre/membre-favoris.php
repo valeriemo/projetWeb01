@@ -1,6 +1,6 @@
 {{ include('snippet/header.php', {title: 'Vos favoris'}) }}
 
-<main>
+<main class="membre-main">
     <section class="dashboard">
         <header class="titre-section">
             <h2>

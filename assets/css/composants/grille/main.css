@@ -1,10 +1,31 @@
 .grille-principale{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(26ch, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
     gap: var(--space-Xsmall);
 }
 
+.grille-principale.portail{
+    grid-template-columns: repeat(auto-fit, minmax(40ch, 1fr));
+    margin-left: auto;
+    margin-right: auto;
+}
 
+.portail-action{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-Xsmall);
+    max-width: 45ch;
+    min-height: 160px;
+    & img{
+        max-width: 10ch;
+        max-height: 20ch;
+        margin-top: -40px;
+    }
+    & .button-1{
+        max-height: 40px;
+    }
+}
 
 @media (max-width:500px) {
     .grille-principale {

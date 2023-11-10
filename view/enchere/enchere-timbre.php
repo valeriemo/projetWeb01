@@ -5,48 +5,65 @@
 
     <section class="page-timbre">
         {% if images == false %}
-        <div>
-            <img class="timbre-signet favoris" src="{{path}}assets/img/svg/icone/bookmark-gold.svg" alt="signet" />
             <picture>
+
+                {% if enchere.favoris == true %}
+                <img class="timbre-signet favoris" src="{{path}}assets/img/svg/icone/bookmark-gold.svg" alt="signet" />
+                {% else %}
+                <img class="timbre-signet favoris" src="{{path}}assets/img/svg/icone/bookmark2" alt="signet" />
+                {% endif %}
                 <img loading="lazy" src="{{path}}assets/img/jpeg/noImg.jpg" alt="timbre" />
             </picture>
+
             {% else %}
+            <div class="timbre-picture">
+
             {% for image in images %}
+
             <picture>
+                {% if enchere.favoris == true %}
+                <img class="timbre-signet favoris" src="{{path}}assets/img/svg/icone/bookmark-gold.svg" alt="signet" />
+                {% else %}
+                <img class="timbre-signet favoris" src="{{path}}assets/img/svg/icone/bookmark2.svg" alt="signet" />
+                {% endif %}
                 <img loading="lazy" src="{{path}}assets/img/public/{{image.nomImage}}" alt="timbre" />
             </picture>
             {% endfor %}
-            {% endif %}
-            <span>Cliquez pour voir de plus près</span>
 
-        </div>
+            </div>
+
+
+            {% endif %}
+
 
         <div>
             <hgroup>
-                <h2>{{enchere.nomTimbre}}</h2>
+                <h2>{{enchere.nomTimbre|capitalize}}</h2>
                 <p>Temps restant : {{enchere.tempsRestant.d}} jours et {{enchere.tempsRestant.h}} heures</p>
                 {% if enchere.coupDeCoeur != null %}
-                <p>Coup de coeur du Lord !</p>
+                <figure><img src="{{path}}assets/img/svg/icone/coupDeCoeur.svg" alt="icone coup de coeur du lord"></figure>
                 {% endif %}
             </hgroup>
 
             <div class="mises">
                 <div>
                     {% if enchere.prixMax == null %}
-                    <p>Prix d'enchère actuel :<span> C${{enchere.prixPlancher}}</span></p>
+                    <p>Prix d'enchère actuel</p>
+                    <span> C${{enchere.prixPlancher}}</span>
                     {% else %}
-                    <p>Prix d'enchère actuel :<span> C${{enchere.prixMax}}</span></p>
+                    <p>Prix d'enchère actuel</p>
+                    <span> C${{enchere.prixMax}}</span>
                     {% endif %}
                     {% if enchere.nbMise == 0 %}
-                    <p>Soyez le premier à miser</p>
+                    <p>Soyez le premier à miser !</p>
                     {% else %}
-                    <p>Nombres de mises :<span>{{ enchere.nbMise}} offres</span></p>
+                    <p>Nombres de mises</p>
+                    <span>{{ enchere.nbMise}} offres</span>
                     {% endif %}
                 </div>
 
                 <div>
-                    <!-- Mettre un écouteur d'événement sur le bouton pour afficher le modal de mise -->
-                    <button data-miser class="button-2"><a href="{{path}}enchere/mise/{{enchere.idEnchere}}">Miser !</a></button>
+                    <button class="button-2"><a href="{{path}}enchere/mise/{{enchere.idEnchere}}">Miser !</a></button>
                     {% if enchere.favoris == false %}
                     <button class="button-1"><a href="{{path}}enchere/favoris/{{enchere.idEnchere}}">Mettre dans ses favoris</a></button>
                     {% else %}
@@ -127,104 +144,6 @@
                 </dd>
             </dl>
 
-            <ul>
-                <li class="tags">
-                    1950
-                    <svg data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.99 64.99">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #f3f0ed;
-                                    stroke-width: 0px;
-                                }
-                            </style>
-                        </defs>
-                        <g data-name="Layer 1">
-                            <path class="cls-1" d="m36.9,0L0,36.9l28.08,28.08,36.9-36.9V0h-28.08Zm10.86,9.84c4.05,0,7.38,3.33,7.38,7.38s-3.33,7.38-7.38,7.38-7.38-3.33-7.38-7.38,3.33-7.38,7.38-7.38Z" />
-                        </g>
-                    </svg>
-                </li>
-                <li class="tags">
-                    Allemagne
-                    <svg data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.99 64.99">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #f3f0ed;
-                                    stroke-width: 0px;
-                                }
-                            </style>
-                        </defs>
-                        <g data-name="Layer 1">
-                            <path class="cls-1" d="m36.9,0L0,36.9l28.08,28.08,36.9-36.9V0h-28.08Zm10.86,9.84c4.05,0,7.38,3.33,7.38,7.38s-3.33,7.38-7.38,7.38-7.38-3.33-7.38-7.38,3.33-7.38,7.38-7.38Z" />
-                        </g>
-                    </svg>
-                </li>
-                <li class="tags">
-                    Monument
-                    <svg data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.99 64.99">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #f3f0ed;
-                                    stroke-width: 0px;
-                                }
-                            </style>
-                        </defs>
-                        <g data-name="Layer 1">
-                            <path class="cls-1" d="m36.9,0L0,36.9l28.08,28.08,36.9-36.9V0h-28.08Zm10.86,9.84c4.05,0,7.38,3.33,7.38,7.38s-3.33,7.38-7.38,7.38-7.38-3.33-7.38-7.38,3.33-7.38,7.38-7.38Z" />
-                        </g>
-                    </svg>
-                </li>
-                <li class="tags">
-                    Collection privé
-                    <svg data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.99 64.99">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #f3f0ed;
-                                    stroke-width: 0px;
-                                }
-                            </style>
-                        </defs>
-                        <g data-name="Layer 1">
-                            <path class="cls-1" d="m36.9,0L0,36.9l28.08,28.08,36.9-36.9V0h-28.08Zm10.86,9.84c4.05,0,7.38,3.33,7.38,7.38s-3.33,7.38-7.38,7.38-7.38-3.33-7.38-7.38,3.33-7.38,7.38-7.38Z" />
-                        </g>
-                    </svg>
-                </li>
-                <li class="tags">
-                    Commémoratif
-                    <svg data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.99 64.99">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #f3f0ed;
-                                    stroke-width: 0px;
-                                }
-                            </style>
-                        </defs>
-                        <g data-name="Layer 1">
-                            <path class="cls-1" d="m36.9,0L0,36.9l28.08,28.08,36.9-36.9V0h-28.08Zm10.86,9.84c4.05,0,7.38,3.33,7.38,7.38s-3.33,7.38-7.38,7.38-7.38-3.33-7.38-7.38,3.33-7.38,7.38-7.38Z" />
-                        </g>
-                    </svg>
-                </li>
-                <li class="tags">
-                    Germanique
-                    <svg data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.99 64.99">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #f3f0ed;
-                                    stroke-width: 0px;
-                                }
-                            </style>
-                        </defs>
-                        <g data-name="Layer 1">
-                            <path class="cls-1" d="m36.9,0L0,36.9l28.08,28.08,36.9-36.9V0h-28.08Zm10.86,9.84c4.05,0,7.38,3.33,7.38,7.38s-3.33,7.38-7.38,7.38-7.38-3.33-7.38-7.38,3.33-7.38,7.38-7.38Z" />
-                        </g>
-                    </svg>
-                </li>
-            </ul>
-        </div>
+
     </section>
     {{ include('snippet/footer.php') }}
